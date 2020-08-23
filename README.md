@@ -18,7 +18,7 @@ Information about:
   - Visualization the weights and connection between nodes
 # Examples
 ***Example 1***
-![](Examples/Example1.png)
+![](Examples/flappy.gif)
 
 ***Example 2***
 ![](Examples/Example2.png)
