@@ -17,9 +17,9 @@ Information about:
   - Maximum number of obstacles passed within generation
   - Visualization the weights and connection between nodes
 # Examples
-Example 1
+***Example 1***
 ![](Examples/Example1.png)
 
-Example 2
+***Example 2***
 ![](Examples/Example2.png)
 
