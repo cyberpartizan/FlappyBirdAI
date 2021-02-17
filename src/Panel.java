@@ -47,9 +47,9 @@ public class Panel {
 		JLabel animationspeedLable = new JLabel("");
 		JLabel freespaceLable = new JLabel("");
 		JLabel lblNewLabel_1 = new JLabel(
-				"\u0421\u0432\u043E\u0431\u043E\u0434\u043D\u043E\u0435 \u043F\u0440\u043E\u0441\u0442\u0440\u0430\u043D\u0441\u0442\u0432\u043E");
+				"Свободное пространство");
 		JLabel lblNewLabel = new JLabel(
-				"\u0421\u043A\u043E\u0440\u043E\u0441\u044C \u0430\u043D\u0438\u043C\u0430\u0446\u0438\u0438");
+				"Скорось анимации");
 		JSlider slider_1 = new JSlider();
 		JSlider slider = new JSlider();
 
@@ -65,7 +65,7 @@ public class Panel {
 		MaxBirdNumbLable.setBounds(235, 131, 60, 31);
 		frame.getContentPane().add(MaxBirdNumbLable);
 		JLabel MaxBirdLable = new JLabel(
-				"\u041C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u043E\u0435 \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u043F\u0442\u0438\u0446");
+				"Максимальное количество птиц");
 		MaxBirdLable.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		MaxBirdLable.setBounds(10, 133, 226, 29);
 		frame.getContentPane().add(MaxBirdLable);
@@ -104,7 +104,7 @@ public class Panel {
 		frame.getContentPane().add(animationspeedLable);
 
 		JButton btnNewButton = new JButton(
-				"\u041F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u044B \u0441\u043A\u0440\u044B\u0442\u044B\u0445 \u0441\u043B\u043E\u0435\u0432");
+				"Параметры скрытых слоев");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Variables.bestBird = null;
@@ -142,13 +142,13 @@ public class Panel {
 		hiddenlayerTextField = new JTextField();
 		hiddenlayerTextField.setText("4");
 		hiddenlayerTextField
-				.setToolTipText("\u0427\u0435\u0440\u0435\u0437 \u0437\u0430\u043F\u044F\u0442\u0443\u044E");
+				.setToolTipText("Через запятую");
 		hiddenlayerTextField.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		hiddenlayerTextField.setBounds(307, 208, 243, 27);
 		frame.getContentPane().add(hiddenlayerTextField);
 		hiddenlayerTextField.setColumns(10);
 
-		JButton pauseBTN = new JButton("\u041F\u0430\u0443\u0437\u0430");
+		JButton pauseBTN = new JButton("Пауза");
 		pauseBTN.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		pauseBTN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -159,7 +159,7 @@ public class Panel {
 		pauseBTN.setBounds(379, 0, 89, 29);
 		frame.getContentPane().add(pauseBTN);
 
-		JButton startBTN = new JButton("\u0421\u0442\u0430\u0440\u0442");
+		JButton startBTN = new JButton("Старт");
 		startBTN.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		startBTN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -186,7 +186,7 @@ public class Panel {
 		});
 
 		JButton CreateSimulationBTN = new JButton(
-				"\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u043D\u043E\u0432\u0443\u044E \u0441\u0438\u043C\u0443\u043B\u044F\u0446\u0438\u044E");
+				"Создать новую симуляцию");
 		CreateSimulationBTN.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		CreateSimulationBTN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -200,7 +200,7 @@ public class Panel {
 		CreateSimulationBTN.setBounds(10, 0, 221, 27);
 		frame.getContentPane().add(CreateSimulationBTN);
 
-		JLabel lblNewLabel_2 = new JLabel("\u041F\u043E\u043F\u0443\u043B\u044F\u0446\u0438\u044F \u2116");
+		JLabel lblNewLabel_2 = new JLabel("Популяция №");
 		lblNewLabel_2.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		lblNewLabel_2.setBounds(280, 38, 94, 18);
 		frame.getContentPane().add(lblNewLabel_2);
@@ -211,19 +211,19 @@ public class Panel {
 		frame.getContentPane().add(numbPopLabl);
 
 		JLabel lblNewLabel_3 = new JLabel(
-				"\u0427\u0438\u0441\u043B\u043E \u0436\u0438\u0432\u044B\u0445 \u043F\u0442\u0438\u0446:");
+				"Число живых птиц:");
 		lblNewLabel_3.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		lblNewLabel_3.setBounds(280, 67, 133, 25);
 		frame.getContentPane().add(lblNewLabel_3);
 
 		JLabel lblNewLabel_4 = new JLabel(
-				"\u041F\u0440\u043E\u0438\u0434\u0435\u043D\u043E \u043F\u0440\u0435\u043F\u044F\u0442\u0441\u0442\u0432\u0438\u0439: ");
+				"Препятствий пройдено : ");
 		lblNewLabel_4.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		lblNewLabel_4.setBounds(280, 103, 166, 19);
 		frame.getContentPane().add(lblNewLabel_4);
 
 		JLabel lblNewLabel_5 = new JLabel(
-				"\u041C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u043E \u043F\u0440\u043E\u0438\u0434\u0435\u043D\u043E \u043F\u0440\u0435\u043F\u044F\u0442\u0441\u0442\u0432\u0438\u0439: ");
+				"Максимально пройдено препятствий: ");
 		lblNewLabel_5.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		lblNewLabel_5.setBounds(280, 138, 270, 25);
 		frame.getContentPane().add(lblNewLabel_5);
@@ -344,13 +344,13 @@ public class Panel {
 		frame.getContentPane().add(slider_4);
 
 		JLabel lblNewLabel_6 = new JLabel(
-				"\u0412\u0435\u0440\u043E\u044F\u0442\u043D\u043E\u0441\u0442\u044C \u043C\u0443\u0442\u0430\u0446\u0438\u0438 \u043D\u0435\u0439\u0440\u043E\u043D\u0430");
+				"Вероятность мутации нейрона");
 		lblNewLabel_6.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		lblNewLabel_6.setBounds(10, 187, 218, 23);
 		frame.getContentPane().add(lblNewLabel_6);
 
 		JLabel lblNewLabel_8 = new JLabel(
-				"\u041C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u044B\u0439 \u0441\u0434\u0432\u0438\u0433 \u0432\u0435\u0441\u0430 \u043D\u0435\u0439\u0440\u043E\u043D\u0430");
+				"Максимальный сдвиг веса нейрона");
 		lblNewLabel_8.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		lblNewLabel_8.setBounds(10, 246, 243, 20);
 		frame.getContentPane().add(lblNewLabel_8);

@@ -8,7 +8,7 @@ public class mainClass implements ActionListener, KeyListener {
     public static mainClass mainClass;
     public Renderer renderer;
     public static Panel panel;
-    boolean passedcolum;
+    boolean columnPassed;
     boolean lastbirdbool = false;
     int delay;
     Font font = new Font("TimesRoman", Font.BOLD, 27);
@@ -16,7 +16,7 @@ public class mainClass implements ActionListener, KeyListener {
     public mainClass() {
 
         width = Variables.Width;
-        passedcolum = false;
+        columnPassed = false;
         delay = 20 - Variables.animationSpeed;
         Variables.populationCount = 0;
         Variables.columnsPassed = 0;
@@ -33,10 +33,10 @@ public class mainClass implements ActionListener, KeyListener {
         window.setVisible(true);
         window.setResizable(false);
         window.addKeyListener(this);
-        newgame(-1);
+        newGame(-1);
     }
 
-    public void newgame(int q) {
+    public void newGame(int q) {
         Variables.columns.clear();
         Variables.populationCount++;
         Variables.columnsPassed = 0;
@@ -68,8 +68,8 @@ public class mainClass implements ActionListener, KeyListener {
             closestColumn = Variables.columns.get(1);
             closestColumn.color = Color.BLUE;
             Variables.columns.get(0).color = Color.green;
-            if (passedcolum) {
-                passedcolum = false;
+            if (columnPassed) {
+                columnPassed = false;
                 Variables.columnsPassed++;
                 if (Variables.maxColumnsPassed < Variables.columnsPassed) {
                     Variables.maxColumnsPassed = Variables.columnsPassed;
@@ -78,7 +78,7 @@ public class mainClass implements ActionListener, KeyListener {
         } else {
             closestColumn = Variables.columns.get(0);
             closestColumn.color = Color.BLUE;
-            passedcolum = true;
+            columnPassed = true;
         }
         for (int i = 0; i < Variables.columns.size(); i++) {
             Variables.columns.get(i).repaintColumn(g);
@@ -129,7 +129,7 @@ public class mainClass implements ActionListener, KeyListener {
 
         if (Variables.birds.size() == 0) {
             Variables.counter = -1;
-            newgame(1);
+            newGame(1);
         }
     }
 
