@@ -1,6 +1,4 @@
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.util.Random;
 
 public class Column {
@@ -9,7 +7,6 @@ public class Column {
     Rectangle rectUp = new Rectangle();
     Rectangle rectDown = new Rectangle();
     Random dice = new Random();
-    public Variables var = new Variables();
     Color color;
 
     public Column() {
@@ -17,8 +14,8 @@ public class Column {
         initialization();
     }
 
-    public Column(int coordX) {
-        x = coordX;
+    public Column(int coordinateX) {
+        x = coordinateX;
         initialization();
     }
 

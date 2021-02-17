@@ -1,15 +1,18 @@
+import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import javax.swing.JFrame;
-import javax.swing.Timer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class mainClass implements ActionListener, KeyListener {
     public int height, width;
+    public Variables var = new Variables();
     public static mainClass mainClass;
     public Renderer renderer;
     public static Panel panel;
     boolean columnPassed;
-    boolean lastbirdbool = false;
+    boolean lastBirdBool = false;
     int delay;
     Font font = new Font("TimesRoman", Font.BOLD, 27);
 
@@ -112,14 +115,14 @@ public class mainClass implements ActionListener, KeyListener {
         for (int i = 0; i < Variables.birds.size(); i++) {
             brd = Variables.birds.get(i);
             if (Variables.birds.size() == 1) {
-                if (lastbirdbool) {
+                if (lastBirdBool) {
                     Variables.bestBird = Variables.birds.get(0);
                     Graphics gg = panel.panel_1.getGraphics();
                     panel.panel_1.paint(gg);
-                    lastbirdbool = false;
+                    lastBirdBool = false;
                 }
             } else {
-                lastbirdbool = true;
+                lastBirdBool = true;
             }
             if (brd.birdRect.intersects(Variables.columns.get(0).rectDown)
                     || brd.birdRect.intersects(Variables.columns.get(0).rectUp)) {

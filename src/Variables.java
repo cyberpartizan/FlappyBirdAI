@@ -1,13 +1,12 @@
-
+import javax.swing.*;
 import java.util.ArrayList;
-import javax.swing.Timer;
 
 public class Variables {
     public static int Width, Height, columnSpace, animationSpeed, populationCount, columnsPassed, birdWidth, population, counter;
     public static Timer sleep;
     public static int[] hiddenLayers = new int[]{4, 4, 2};
-    public static ArrayList<Column> columns = new ArrayList<Column>();
-    public static ArrayList<Bird> birds = new ArrayList<Bird>();
+    public static ArrayList<Column> columns = new ArrayList<>();
+    public static ArrayList<Bird> birds = new ArrayList<>();
     public static int maxColumnsPassed;
     public static Bird bestBird;
     public static double chanceMutate;
@@ -19,10 +18,6 @@ public class Variables {
         Height = 720;
         birdWidth = 13;
 
-    }
-
-    public int getWidth() {
-        return Width;
     }
 
     public static void newGame() {

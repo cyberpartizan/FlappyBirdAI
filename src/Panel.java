@@ -1,26 +1,16 @@
-import javax.swing.JFrame;
-import javax.swing.JButton;
-import javax.swing.JSlider;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import javax.swing.event.ChangeListener;
+import javax.swing.*;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.event.ChangeEvent;
-import java.awt.event.ActionListener;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
-import javax.swing.JPanel;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.awt.BasicStroke;
-import java.awt.Color;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 
 public class Panel {
     public JFrame frame;
-    public Variables var = new Variables();
+
     private JTextField hiddenLayerTextField;
     public JLabel popNumberLbl;
     public JLabel countBirdsLivesLbl;
@@ -263,11 +253,11 @@ public class Panel {
                 int width = panel_1.getWidth();
                 int height = panel_1.getHeight();
                 g.fillRect(0, 0, width, height);
-                int widthcell = width / (Variables.hiddenLayers.length + 1);
+                int widthCell = width / (Variables.hiddenLayers.length + 1);
                 for (int layer = 1; layer < Variables.hiddenLayers.length; layer++) {
-                    int heightcell = height / (Variables.hiddenLayers[layer - 1] + 1);
+                    int heightCell = height / (Variables.hiddenLayers[layer - 1] + 1);
                     for (int neuron = 1; neuron <= Variables.hiddenLayers[layer]; neuron++) {
-                        int nextheightcell = height / (Variables.hiddenLayers[layer] + 1);
+                        int nextHeightCell = height / (Variables.hiddenLayers[layer] + 1);
                         for (int prevNeuron = 1; prevNeuron <= Variables.hiddenLayers[layer - 1]; prevNeuron++) {
                             BasicStroke stroke;
                             if (Variables.bestBird != null) {
@@ -284,8 +274,8 @@ public class Panel {
                                             Variables.bestBird.brain.weights[layer][neuron - 1][prevNeuron - 1] * 4));
                                 }
                                 gg.setStroke(stroke);
-                                gg.drawLine((widthcell * layer) + 15, (heightcell * prevNeuron) + 15,
-                                        (widthcell * (layer + 1)) + 15, (nextheightcell * neuron) + 15);
+                                gg.drawLine((widthCell * layer) + 15, (heightCell * prevNeuron) + 15,
+                                        (widthCell * (layer + 1)) + 15, (nextHeightCell * neuron) + 15);
                             }
 
                         }
@@ -293,7 +283,7 @@ public class Panel {
                 }
 
                 for (int layer = 1; layer <= Variables.hiddenLayers.length; layer++) {
-                    int heightcell = height / (Variables.hiddenLayers[layer - 1] + 1);
+                    int heightCell = height / (Variables.hiddenLayers[layer - 1] + 1);
                     for (int neuron = 1; neuron <= Variables.hiddenLayers[layer - 1]; neuron++) {
                         if (layer == 1) {
                             g.setColor(Color.MAGENTA.darker().darker());
@@ -302,7 +292,7 @@ public class Panel {
                         } else {
                             g.setColor(Color.red);
                         }
-                        g.fillOval(widthcell * layer - 1, heightcell * neuron, 30, 30);
+                        g.fillOval(widthCell * layer - 1, heightCell * neuron, 30, 30);
                     }
                 }
 
