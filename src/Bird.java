@@ -9,8 +9,8 @@ public class Bird {
 	int x, y, gravity;
 
 	Random dice = new Random();
-	Variables var = new Variables();
-	Rectangle birdRect = new Rectangle(50, 50, Variables.birdwidth, Variables.birdwidth);
+	int birdWidth = Variables.birdWidth;
+	Rectangle birdRect = new Rectangle(50, 50, birdWidth, birdWidth);
 	Network brain;
 
 	public Bird() {
@@ -27,7 +27,7 @@ public class Bird {
 		brain = new Network(layers);
 	}
 
-	public void Jump() {
+	public void jump() {
 		gravity = -10;
 	}
 
@@ -35,7 +35,7 @@ public class Bird {
 		double[] input = new double[] { y, closestColum.x, closestColum.rectUp.y, closestColum.rectDown.y };
 		double[] output = brain.calculate(input);
 		if (output[0] > output[1]) {
-			Jump();
+			jump();
 		}
 	}
 

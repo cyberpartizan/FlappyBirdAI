@@ -21,10 +21,10 @@ public class mainClass implements ActionListener, KeyListener {
 
 		width = Variables.Width;
 		passedcolum = false;
-		delay = 20 - Variables.animationspeed;
-		Variables.populationcount = 0;
-		Variables.columspassed = 0;
-		Variables.maxcolumspassed = 0;
+		delay = 20 - Variables.animationSpeed;
+		Variables.populationCount = 0;
+		Variables.columnsPassed = 0;
+		Variables.maxColumnsPassed = 0;
 		height = Variables.Height;
 		Variables.counter = -1;
 		JFrame window = new JFrame();
@@ -41,11 +41,11 @@ public class mainClass implements ActionListener, KeyListener {
 	}
 
 	public void newgame(int q) {
-		Variables.colums.clear();
-		Variables.populationcount++;
-		Variables.columspassed = 0;
+		Variables.columns.clear();
+		Variables.populationCount++;
+		Variables.columnsPassed = 0;
 		for (int i = 0; i < 3; i++) {
-			Variables.colums.add(new Colum((i * 305) + 400));
+			Variables.columns.add(new Colum((i * 305) + 400));
 		}
 		if (q < 0) {
 			for (int i = 0; i < Variables.population; i++) {
@@ -55,37 +55,37 @@ public class mainClass implements ActionListener, KeyListener {
 			for (int i = 0; i < Variables.population; i++) {
 				Variables.birds.add(new Bird());
 				Variables.birds.get(i).brain = new Network(Variables.bestBird.brain);
-				Variables.birds.get(i).brain.mutate(Variables.chancemutate, Long.valueOf(i));
+				Variables.birds.get(i).brain.mutate(i);
 			}
 		}
 	}
 
 	public void repaint(Graphics g) {
 		g.setColor(Color.black);
-		delay = 20 - Variables.animationspeed;
+		delay = 20 - Variables.animationSpeed;
 		Variables.sleep.setDelay(delay);
 		Variables.counter++;
 		g.fillRect(0, 0, width, height);
 		collision();
 		Colum closestColum;
-		if (Variables.colums.get(0).x + Variables.colums.get(0).rectDown.width < 60) {
-			closestColum = Variables.colums.get(1);
+		if (Variables.columns.get(0).x + Variables.columns.get(0).rectDown.width < 60) {
+			closestColum = Variables.columns.get(1);
 			closestColum.color = Color.BLUE;
-			Variables.colums.get(0).color = Color.green;
+			Variables.columns.get(0).color = Color.green;
 			if (passedcolum) {
 				passedcolum = false;
-				Variables.columspassed++;
-				if (Variables.maxcolumspassed < Variables.columspassed) {
-					Variables.maxcolumspassed = Variables.columspassed;
+				Variables.columnsPassed++;
+				if (Variables.maxColumnsPassed < Variables.columnsPassed) {
+					Variables.maxColumnsPassed = Variables.columnsPassed;
 				}
 			}
 		} else {
-			closestColum = Variables.colums.get(0);
+			closestColum = Variables.columns.get(0);
 			closestColum.color = Color.BLUE;
 			passedcolum = true;
 		}
-		for (int i = 0; i < Variables.colums.size(); i++) {
-			Variables.colums.get(i).repaintColum(g);
+		for (int i = 0; i < Variables.columns.size(); i++) {
+			Variables.columns.get(i).repaintColumn(g);
 		}
 
 		for (int i = 0; i < Variables.birds.size(); i++) {
@@ -93,22 +93,22 @@ public class mainClass implements ActionListener, KeyListener {
 			Variables.birds.get(i).repaintBird(g);
 		}
 		if (Variables.counter % 101 == 0) {
-			Variables.colums.add(new Colum());
+			Variables.columns.add(new Colum());
 		}
-		if (Variables.colums.get(0).x + Variables.colums.get(0).fatness < 0) {
-			Variables.colums.remove(0);
+		if (Variables.columns.get(0).x + Variables.columns.get(0).fatness < 0) {
+			Variables.columns.remove(0);
 		}
 		g.setFont(font);
 		g.setColor(Color.white);
-		panel.numbPopLabl.setText(Integer.toString(Variables.populationcount));
+		panel.numbPopLabl.setText(Integer.toString(Variables.populationCount));
 		panel.countlivebirdslbl.setText(Integer.toString(Variables.birds.size()));
-		panel.prepiatlbl.setText(Integer.toString(Variables.columspassed));
-		panel.maxprepiatlbl.setText(Integer.toString(Variables.maxcolumspassed));
+		panel.prepiatlbl.setText(Integer.toString(Variables.columnsPassed));
+		panel.maxprepiatlbl.setText(Integer.toString(Variables.maxColumnsPassed));
 	}
 
 	public void collision() {
 		for (int i = 0; i < Variables.birds.size(); i++) {
-			if (Variables.birds.get(i).y < 0 || Variables.birds.get(i).y + 2 * Variables.birdwidth > height) {
+			if (Variables.birds.get(i).y < 0 || Variables.birds.get(i).y + 2 * Variables.birdWidth > height) {
 				Variables.birds.remove(i);
 			}
 		}
@@ -125,8 +125,8 @@ public class mainClass implements ActionListener, KeyListener {
 			} else {
 				lastbirdbool = true;
 			}
-			if (brd.birdRect.intersects(Variables.colums.get(0).rectDown)
-					|| brd.birdRect.intersects(Variables.colums.get(0).rectUp)) {
+			if (brd.birdRect.intersects(Variables.columns.get(0).rectDown)
+					|| brd.birdRect.intersects(Variables.columns.get(0).rectUp)) {
 				Variables.birds.remove(brd);
 			}
 		}
@@ -142,7 +142,7 @@ public class mainClass implements ActionListener, KeyListener {
 		int key = e.getKeyCode();
 		if (key == KeyEvent.VK_SPACE) {
 			for (int i = 0; i < Variables.birds.size(); i++) {
-				Variables.birds.get(i).Jump();
+				Variables.birds.get(i).jump();
 			}
 		}
 		if (key == KeyEvent.VK_UP) {
@@ -154,7 +154,7 @@ public class mainClass implements ActionListener, KeyListener {
 	}
 
 	public static void main(String[] args) {
-		Variables.hidenlayers = new int[] { 4, 4, 2 };
+		Variables.hiddenLayers = new int[] { 4, 4, 2 };
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {

@@ -24,11 +24,11 @@ public class Colum {
 
 	public void initialization() {
 		height = Variables.Height;
-		space = Variables.ColumSpace;
+		space = Variables.columnSpace;
 		fatness = 70;
 		y = dice.nextInt(height);
-		if (y > height - Variables.ColumSpace - 90) {
-			y = height - Variables.ColumSpace - 90;
+		if (y > height - Variables.columnSpace - 90) {
+			y = height - Variables.columnSpace - 90;
 		}
 		if (y < 90) {
 			y = 90;
@@ -40,11 +40,11 @@ public class Colum {
 		rectUp.x = x;
 		rectDown.x = x;
 		rectDown.height = height;
-		rectDown.y = y + Variables.ColumSpace;
+		rectDown.y = y + Variables.columnSpace;
 		color = Color.green;
 	}
 
-	public void repaintColum(Graphics g) {
+	public void repaintColumn(Graphics g) {
 		g.setColor(color);
 		x -= 3;
 		updateRect();

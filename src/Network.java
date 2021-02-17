@@ -41,26 +41,6 @@ public class Network {
 		}
 	}
 
-	/*
-	 * public Network(Network net) { this.INPUT_SIZE = net.INPUT_SIZE;
-	 * this.NETWORK_LAYER_SIZES = net.NETWORK_LAYER_SIZES; this.NETWORK_SIZE =
-	 * net.NETWORK_SIZE; this.OUTPUT_SIZE = net.OUTPUT_SIZE;
-	 * 
-	 * this.output = net.output; this.weights = net.weights; this.bias = net.bias;
-	 * 
-	 * this.error_signal = net.error_signal; this.output_derivative =
-	 * net.output_derivative;
-	 * 
-	 * for (int i = 0; i < NETWORK_SIZE; i++) {
-	 * 
-	 * this.output[i] = new double[NETWORK_LAYER_SIZES[i]]; this.error_signal[i] =
-	 * new double[NETWORK_LAYER_SIZES[i]]; this.output_derivative[i] = new
-	 * double[NETWORK_LAYER_SIZES[i]];
-	 * 
-	 * this.bias[i] = net.bias[i];
-	 * 
-	 * if (i > 0) { this.weights[i] = net.weights[i]; } } }
-	 */
 	public Network(Network other) {
 		this.output = copy2d(other.output);
 		this.weights = copy3d(other.weights);
@@ -74,7 +54,7 @@ public class Network {
 		this.NETWORK_SIZE = other.NETWORK_SIZE;
 	}
 
-	private static double[][][] copy3d(double[][][] original) {
+	private static double[][][] copy3d(double[][][] original) {//Полная копия трехмерного массива
 		double[][][] copy = new double[original.length][][];
 		for (int i = 0; i < original.length; i++) {
 			if (i > 0) {
@@ -84,7 +64,7 @@ public class Network {
 		return copy;
 	}
 
-	private static double[][] copy2d(double[][] original) {
+	private static double[][] copy2d(double[][] original) {//Полная копия двухмерного массива
 		double[][] copy = new double[original.length][];
 		for (int i = 0; i < original.length; i++) {
 			copy[i] = copy1d(original[i]);
@@ -92,14 +72,14 @@ public class Network {
 		return copy;
 	}
 
-	private static double[] copy1d(double[] original) {
+	private static double[] copy1d(double[] original) {//Полная копия одномерного массива (double)
 		int length = original.length;
 		double[] copy = new double[length];
 		System.arraycopy(original, 0, copy, 0, length);
 		return copy;
 	}
 
-	private static int[] copy1dInt(int[] original) {
+	private static int[] copy1dInt(int[] original) {//Полная копия одномерного массива (int)
 		int length = original.length;
 		int[] copy = new int[length];
 		System.arraycopy(original, 0, copy, 0, length);
@@ -124,45 +104,13 @@ public class Network {
 		return output[NETWORK_SIZE - 1];
 	}
 
-	/*
-	 * public void train(double[] input, double[] target, double eta) { if
-	 * (input.length != INPUT_SIZE || target.length != OUTPUT_SIZE) return;
-	 * calculate(input); backpropError(target); updateWeights(eta); }
-	 */
-
-	/*
-	 * public void backpropError(double[] target) { for (int neuron = 0; neuron <
-	 * NETWORK_LAYER_SIZES[NETWORK_SIZE - 1]; neuron++) { error_signal[NETWORK_SIZE
-	 * - 1][neuron] = (output[NETWORK_SIZE - 1][neuron] - target[neuron])
-	 * output_derivative[NETWORK_SIZE - 1][neuron]; } for (int layer = NETWORK_SIZE
-	 * - 2; layer > 0; layer--) { for (int neuron = 0; neuron <
-	 * NETWORK_LAYER_SIZES[layer]; neuron++) { double sum = 0; for (int nextNeuron =
-	 * 0; nextNeuron < NETWORK_LAYER_SIZES[layer + 1]; nextNeuron++) { sum +=
-	 * weights[layer + 1][nextNeuron][neuron] * error_signal[layer + 1][nextNeuron];
-	 * } this.error_signal[layer][neuron] = sum * output_derivative[layer][neuron];
-	 * } } }
-	 */
-
-	/*
-	 * public void updateWeights(double eta) { for (int layer = 1; layer <
-	 * NETWORK_SIZE; layer++) { for (int neuron = 0; neuron <
-	 * NETWORK_LAYER_SIZES[layer]; neuron++) {
-	 * 
-	 * double delta = -eta * error_signal[layer][neuron]; bias[layer][neuron] +=
-	 * delta;
-	 * 
-	 * for (int prevNeuron = 0; prevNeuron < NETWORK_LAYER_SIZES[layer - 1];
-	 * prevNeuron++) { weights[layer][neuron][prevNeuron] += delta * output[layer -
-	 * 1][prevNeuron]; } } } }
-	 */
-
-	public void mutate(double eta, long seed) {
+	public void mutate(long seed) {//Мутация нейрона
 		Random dice = new Random();
 		dice.setSeed(seed);
 		for (int layer = 1; layer < NETWORK_SIZE; layer++) {
 			for (int neuron = 0; neuron < NETWORK_LAYER_SIZES[layer]; neuron++) {
-				if (dice.nextDouble() < (Variables.chancemutate/100)) {
-					double gausrandbiasdev=(101 - Variables.maxweightchage)/100;
+				if (dice.nextDouble() < (Variables.chanceMutate /100)) {
+					double gausrandbiasdev=(101 - Variables.maxWeightChange)/100;
 					double gausrandbias = dice.nextGaussian() * gausrandbiasdev;
 					bias[layer][neuron] += gausrandbias;
 				}
@@ -172,8 +120,8 @@ public class Network {
 					bias[layer][neuron] = -1;
 				}
 				for (int prevNeuron = 0; prevNeuron < NETWORK_LAYER_SIZES[layer - 1]; prevNeuron++) {
-					if (dice.nextDouble() < (Variables.chancemutate/100)) {
-						double gausrandweight = dice.nextGaussian() * ((101 - Variables.maxweightchage)/100);
+					if (dice.nextDouble() < (Variables.chanceMutate /100)) {
+						double gausrandweight = dice.nextGaussian() * ((101 - Variables.maxWeightChange)/100);
 						weights[layer][neuron][prevNeuron] += gausrandweight;
 					}
 
@@ -186,21 +134,10 @@ public class Network {
 				}
 			}
 		}
-		System.out.println("");
 	}
 
 	private double sigmoid(double x) {
 		return 1d / (1 + Math.exp(-x));
 	}
-
-	/*
-	 * public static void main(String[] args) { Network net = new Network(2, 5, 1);
-	 * Random dice = new Random(); int select; double[][] input = new double[][] { {
-	 * 0, 0 }, { 0, 1 }, { 1, 0 }, { 1, 1 } }; double[][] output = new double[][] {
-	 * { 0 }, { 1 }, { 1 }, { 0 } }; for (int i = 0; i < 10000; i++) { select =
-	 * dice.nextInt(4); net.train(input[select], output[select], 0.5); } for (int i
-	 * = 0; i < 4; i++) {
-	 * System.out.println(Arrays.toString(net.calculate(input[i]))); } }
-	 */
 
 }

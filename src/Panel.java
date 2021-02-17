@@ -56,7 +56,7 @@ public class Panel {
 		slider_1.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				freespaceLable.setText(Integer.toString(slider_1.getValue()));
-				Variables.ColumSpace = slider_1.getValue();
+				Variables.columnSpace = slider_1.getValue();
 			}
 
 		});
@@ -73,7 +73,7 @@ public class Panel {
 		slider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
 				animationspeedLable.setText(Integer.toString(slider.getValue()));
-				Variables.animationspeed = slider.getValue();
+				Variables.animationSpeed = slider.getValue();
 			}
 		});
 		slider.setValue(0);
@@ -84,8 +84,8 @@ public class Panel {
 		lblNewLabel.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		lblNewLabel.setBounds(10, 26, 177, 25);
 		frame.getContentPane().add(lblNewLabel);
-		Variables.ColumSpace = 100;
-		slider_1.setValue(Variables.ColumSpace);
+		Variables.columnSpace = 100;
+		slider_1.setValue(Variables.columnSpace);
 		slider_1.setMaximum(350);
 		slider_1.setMinimum(70);
 		slider_1.setBounds(10, 111, 243, 23);
@@ -126,9 +126,9 @@ public class Panel {
 					}
 					inthiddenlayer[inthiddenlayer.length - 1] = 2;
 				}
-				Variables.hidenlayers = inthiddenlayer;
-				Variables.populationcount = 0;
-				Variables.maxcolumspassed = 0;
+				Variables.hiddenLayers = inthiddenlayer;
+				Variables.populationCount = 0;
+				Variables.maxColumnsPassed = 0;
 				Variables.newgame();
 				Variables.sleep.start();
 				Graphics gg = panel_1.getGraphics();
@@ -190,9 +190,9 @@ public class Panel {
 		CreateSimulationBTN.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		CreateSimulationBTN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Variables.populationcount = 0;
+				Variables.populationCount = 0;
 				Variables.bestBird = null;
-				Variables.maxcolumspassed = 0;
+				Variables.maxColumnsPassed = 0;
 				Variables.newgame();
 				Variables.sleep.start();
 			}
@@ -262,12 +262,12 @@ public class Panel {
 				int width = panel_1.getWidth();
 				int height = panel_1.getHeight();
 				g.fillRect(0, 0, width, height);
-				int widthcell = width / (Variables.hidenlayers.length + 1);
-				for (int layer = 1; layer < Variables.hidenlayers.length; layer++) {
-					int heightcell = height / (Variables.hidenlayers[layer - 1] + 1);
-					for (int neuron = 1; neuron <= Variables.hidenlayers[layer]; neuron++) {
-						int nextheightcell = height / (Variables.hidenlayers[layer] + 1);
-						for (int prevNeuron = 1; prevNeuron <= Variables.hidenlayers[layer - 1]; prevNeuron++) {
+				int widthcell = width / (Variables.hiddenLayers.length + 1);
+				for (int layer = 1; layer < Variables.hiddenLayers.length; layer++) {
+					int heightcell = height / (Variables.hiddenLayers[layer - 1] + 1);
+					for (int neuron = 1; neuron <= Variables.hiddenLayers[layer]; neuron++) {
+						int nextheightcell = height / (Variables.hiddenLayers[layer] + 1);
+						for (int prevNeuron = 1; prevNeuron <= Variables.hiddenLayers[layer - 1]; prevNeuron++) {
 							BasicStroke stroke = null;
 							if (Variables.bestBird != null) {
 								if (Variables.bestBird.brain.weights[layer][neuron - 1][prevNeuron - 1] < 0) {
@@ -291,12 +291,12 @@ public class Panel {
 					}
 				}
 
-				for (int layer = 1; layer <= Variables.hidenlayers.length; layer++) {
-					int heightcell = height / (Variables.hidenlayers[layer - 1] + 1);
-					for (int neuron = 1; neuron <= Variables.hidenlayers[layer - 1]; neuron++) {
+				for (int layer = 1; layer <= Variables.hiddenLayers.length; layer++) {
+					int heightcell = height / (Variables.hiddenLayers[layer - 1] + 1);
+					for (int neuron = 1; neuron <= Variables.hiddenLayers[layer - 1]; neuron++) {
 						if (layer == 1) {
 							g.setColor(Color.MAGENTA.darker().darker());
-						} else if (layer == Variables.hidenlayers.length) {
+						} else if (layer == Variables.hiddenLayers.length) {
 							g.setColor(Color.YELLOW);
 						} else {
 							g.setColor(Color.red);
@@ -321,23 +321,23 @@ public class Panel {
 		slider_3.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
 				chancemutatelbl.setText(Double.toString(slider_3.getValue()) + "%");
-				Variables.chancemutate = slider_3.getValue();
+				Variables.chanceMutate = slider_3.getValue();
 			}
 		});
 
 		slider_3.setValue(10);
 		slider_3.setBounds(10, 212, 243, 23);
-		Variables.chancemutate = slider_3.getValue();
+		Variables.chanceMutate = slider_3.getValue();
 		frame.getContentPane().add(slider_3);
 
 		JSlider slider_4 = new JSlider();
 		slider_4.setValue(10);
-		Variables.maxweightchage = slider_4.getValue();
-		maxweightchangelbl.setText(Double.toString(Variables.maxweightchage) + "%");
+		Variables.maxWeightChange = slider_4.getValue();
+		maxweightchangelbl.setText(Double.toString(Variables.maxWeightChange) + "%");
 		slider_4.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
-				maxweightchangelbl.setText(Double.toString(Variables.maxweightchage) + "%");
-				Variables.maxweightchage = slider_4.getValue();
+				maxweightchangelbl.setText(Double.toString(Variables.maxWeightChange) + "%");
+				Variables.maxWeightChange = slider_4.getValue();
 			}
 		});
 		slider_4.setBounds(10, 267, 243, 23);
