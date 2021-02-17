@@ -96,10 +96,10 @@ public class mainClass implements ActionListener, KeyListener {
         }
         g.setFont(font);
         g.setColor(Color.white);
-        panel.numbPopLabl.setText(Integer.toString(Variables.populationCount));
-        panel.countlivebirdslbl.setText(Integer.toString(Variables.birds.size()));
-        panel.prepiatlbl.setText(Integer.toString(Variables.columnsPassed));
-        panel.maxprepiatlbl.setText(Integer.toString(Variables.maxColumnsPassed));
+        panel.popNumberLbl.setText(Integer.toString(Variables.populationCount));
+        panel.countBirdsLivesLbl.setText(Integer.toString(Variables.birds.size()));
+        panel.obstacleLbl.setText(Integer.toString(Variables.columnsPassed));
+        panel.maxObstacleLbl.setText(Integer.toString(Variables.maxColumnsPassed));
     }
 
     public void collision() {
