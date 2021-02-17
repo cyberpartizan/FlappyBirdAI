@@ -129,7 +129,7 @@ public class Panel {
 				Variables.hiddenLayers = inthiddenlayer;
 				Variables.populationCount = 0;
 				Variables.maxColumnsPassed = 0;
-				Variables.newgame();
+				Variables.newGame();
 				Variables.sleep.start();
 				Graphics gg = panel_1.getGraphics();
 				panel_1.paint(gg);
@@ -193,7 +193,7 @@ public class Panel {
 				Variables.populationCount = 0;
 				Variables.bestBird = null;
 				Variables.maxColumnsPassed = 0;
-				Variables.newgame();
+				Variables.newGame();
 				Variables.sleep.start();
 			}
 		});
