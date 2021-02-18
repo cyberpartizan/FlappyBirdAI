@@ -130,14 +130,12 @@ public class mainClass implements ActionListener {
     }
 
     public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    panel = new Panel();
-                    panel.frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        EventQueue.invokeLater(() -> {
+            try {
+                panel = new Panel();
+                panel.frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
         mainClass = new mainClass();
