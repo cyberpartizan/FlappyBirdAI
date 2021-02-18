@@ -31,16 +31,14 @@ public class Network {
             this.output[i] = new double[NETWORK_LAYER_SIZES[i]];
             this.error_signal[i] = new double[NETWORK_LAYER_SIZES[i]];
             this.output_derivative[i] = new double[NETWORK_LAYER_SIZES[i]];
-
             this.bias[i] = NetworkTools.createRandomArray(NETWORK_LAYER_SIZES[i], -0.5, 0.7);
-
             if (i > 0) {
                 weights[i] = NetworkTools.createRandomArray(NETWORK_LAYER_SIZES[i], NETWORK_LAYER_SIZES[i - 1], -1, 1);
             }
         }
     }
 
-    public Network(Network other) {
+    public Network(Network other) {//Создание независимой копии нейросети
         this.output = copy2d(other.output);
         this.weights = copy3d(other.weights);
         this.bias = copy2d(other.bias);
@@ -53,7 +51,7 @@ public class Network {
         this.NETWORK_SIZE = other.NETWORK_SIZE;
     }
 
-    private static double[][][] copy3d(double[][][] original) {//Полная копия трехмерного массива
+    private static double[][][] copy3d(double[][][] original) {//Независимая копия трехмерного массива
         double[][][] copy = new double[original.length][][];
         for (int i = 0; i < original.length; i++) {
             if (i > 0) {
@@ -63,7 +61,7 @@ public class Network {
         return copy;
     }
 
-    private static double[][] copy2d(double[][] original) {//Полная копия двухмерного массива
+    private static double[][] copy2d(double[][] original) {//Независимая копия двухмерного массива
         double[][] copy = new double[original.length][];
         for (int i = 0; i < original.length; i++) {
             copy[i] = copy1d(original[i]);
@@ -71,14 +69,14 @@ public class Network {
         return copy;
     }
 
-    private static double[] copy1d(double[] original) {//Полная копия одномерного массива (double)
+    private static double[] copy1d(double[] original) {//Независимая копия одномерного массива (double)
         int length = original.length;
         double[] copy = new double[length];
         System.arraycopy(original, 0, copy, 0, length);
         return copy;
     }
 
-    private static int[] copy1dInt(int[] original) {//Полная копия одномерного массива (int)
+    private static int[] copy1dInt(int[] original) {//Независимая копия одномерного массива (int)
         int length = original.length;
         int[] copy = new int[length];
         System.arraycopy(original, 0, copy, 0, length);

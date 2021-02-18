@@ -5,8 +5,8 @@ public class Bird {
     int x, y, gravity;
 
     Random dice = new Random();
-    int birdWidth = Variables.birdWidth;
-    Rectangle birdRect = new Rectangle(50, 50, birdWidth, birdWidth);
+    int birdSide = Variables.birdSide;
+    Rectangle birdRect = new Rectangle(50, 50, birdSide, birdSide);
     Network brain;
 
     public Bird() {

@@ -2,12 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
-public class mainClass implements ActionListener, KeyListener {
-    public int height, width;
+public class mainClass implements ActionListener {
     public Variables var = new Variables();
+    public int height, width;
     public static mainClass mainClass;
     public Renderer renderer;
     public static Panel panel;
@@ -31,11 +29,10 @@ public class mainClass implements ActionListener, KeyListener {
         Variables.sleep = new Timer(20, this);
         window.add(renderer);
         window.setSize(width, height);
-        window.setTitle("Flappy Bird Нейросеть");
+        window.setTitle("Flappy Bird AI");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setVisible(true);
         window.setResizable(false);
-        window.addKeyListener(this);
         newGame(-1);
     }
 
@@ -106,19 +103,13 @@ public class mainClass implements ActionListener, KeyListener {
     }
 
     public void collision() {
-        for (int i = 0; i < Variables.birds.size(); i++) {
-            if (Variables.birds.get(i).y < 0 || Variables.birds.get(i).y + 2 * Variables.birdWidth > height) {
-                Variables.birds.remove(i);
-            }
-        }
+        Variables.birds.removeIf(bird -> bird.y < 0 || bird.y + 2 * Variables.birdSide > height);
         Bird brd;
         for (int i = 0; i < Variables.birds.size(); i++) {
             brd = Variables.birds.get(i);
             if (Variables.birds.size() == 1) {
                 if (lastBirdBool) {
                     Variables.bestBird = Variables.birds.get(0);
-                    Graphics gg = panel.panel_1.getGraphics();
-                    panel.panel_1.paint(gg);
                     lastBirdBool = false;
                 }
             } else {
@@ -136,22 +127,6 @@ public class mainClass implements ActionListener, KeyListener {
         }
     }
 
-    @Override
-    public void keyPressed(KeyEvent e) {
-        int key = e.getKeyCode();
-        if (key == KeyEvent.VK_SPACE) {
-            for (int i = 0; i < Variables.birds.size(); i++) {
-                Variables.birds.get(i).jump();
-            }
-        }
-        if (key == KeyEvent.VK_UP) {
-            Variables.sleep.setDelay(0);
-        }
-        if (key == KeyEvent.VK_DOWN) {
-            Variables.sleep.setDelay(15);
-        }
-    }
-
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -164,15 +139,6 @@ public class mainClass implements ActionListener, KeyListener {
             }
         });
         mainClass = new mainClass();
-
-    }
-
-    @Override
-    public void keyReleased(KeyEvent arg0) {
-    }
-
-    @Override
-    public void keyTyped(KeyEvent arg0) {
     }
 
     @Override

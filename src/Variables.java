@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 public class Variables {
-    public static int Width, Height, columnSpace, animationSpeed, populationCount, columnsPassed, birdWidth, population, counter;
+    public static int Width, Height, columnSpace, animationSpeed, populationCount, columnsPassed, birdSide, population, counter;
     public static Timer sleep;
     public static int[] hiddenLayers = new int[]{4, 4, 2};
     public static ArrayList<Column> columns = new ArrayList<>();
@@ -16,7 +16,7 @@ public class Variables {
     public Variables() {
         Width = 1280;
         Height = 720;
-        birdWidth = 13;
+        birdSide = 13;
 
     }
 
