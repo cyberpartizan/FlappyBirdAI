@@ -234,15 +234,15 @@ public class Panel {
         maxObstacleLbl.setBounds(544, 143, 46, 14);
         frame.getContentPane().add(maxObstacleLbl);
 
-        JLabel chancemutatelbl = new JLabel();
-        chancemutatelbl.setFont(myFont);
-        chancemutatelbl.setBounds(222, 190, 48, 17);
-        frame.getContentPane().add(chancemutatelbl);
+        JLabel chanceMutateLbl = new JLabel();
+        chanceMutateLbl.setFont(myFont);
+        chanceMutateLbl.setBounds(222, 190, 48, 17);
+        frame.getContentPane().add(chanceMutateLbl);
 
-        JLabel maxweightchangelbl = new JLabel();
-        maxweightchangelbl.setFont(myFont);
-        maxweightchangelbl.setBounds(263, 251, 60, 15);
-        frame.getContentPane().add(maxweightchangelbl);
+        JLabel maxWeightChangeLbl = new JLabel();
+        maxWeightChangeLbl.setFont(myFont);
+        maxWeightChangeLbl.setBounds(263, 251, 60, 15);
+        frame.getContentPane().add(maxWeightChangeLbl);
 
         panel_1 = new JPanel() {
             public void paint(Graphics g) {
@@ -254,6 +254,7 @@ public class Panel {
                 int height = panel_1.getHeight();
                 g.fillRect(0, 0, width, height);
                 int widthCell = width / (Variables.hiddenLayers.length + 1);
+                //Раскраска линий нейросети
                 for (int layer = 1; layer < Variables.hiddenLayers.length; layer++) {
                     int heightCell = height / (Variables.hiddenLayers[layer - 1] + 1);
                     for (int neuron = 1; neuron <= Variables.hiddenLayers[layer]; neuron++) {
@@ -311,7 +312,7 @@ public class Panel {
         slider_3.setMaximum(99);
         slider_3.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent arg0) {
-                chancemutatelbl.setText(Double.toString(slider_3.getValue()) + "%");
+                chanceMutateLbl.setText(Double.toString(slider_3.getValue()) + "%");
                 Variables.chanceMutate = slider_3.getValue();
             }
         });
@@ -324,10 +325,10 @@ public class Panel {
         JSlider slider_4 = new JSlider();
         slider_4.setValue(10);
         Variables.maxWeightChange = slider_4.getValue();
-        maxweightchangelbl.setText(Double.toString(Variables.maxWeightChange) + "%");
+        maxWeightChangeLbl.setText(Double.toString(Variables.maxWeightChange) + "%");
         slider_4.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent arg0) {
-                maxweightchangelbl.setText(Double.toString(Variables.maxWeightChange) + "%");
+                maxWeightChangeLbl.setText(Double.toString(Variables.maxWeightChange) + "%");
                 Variables.maxWeightChange = slider_4.getValue();
             }
         });

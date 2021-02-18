@@ -110,6 +110,8 @@ public class mainClass implements ActionListener {
             if (Variables.birds.size() == 1) {
                 if (lastBirdBool) {
                     Variables.bestBird = Variables.birds.get(0);
+                    Graphics gg = panel.panel_1.getGraphics();
+                    panel.panel_1.paint(gg);
                     lastBirdBool = false;
                 }
             } else {
