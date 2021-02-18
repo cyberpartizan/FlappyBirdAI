@@ -1,10 +1,6 @@
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
@@ -43,12 +39,9 @@ public class Panel {
         JSlider slider_1 = new JSlider();
         JSlider slider = new JSlider();
 
-        slider_1.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e) {
-                freeSpaceLbl.setText(Integer.toString(slider_1.getValue()));
-                Variables.columnSpace = slider_1.getValue();
-            }
-
+        slider_1.addChangeListener(e -> {
+            freeSpaceLbl.setText(Integer.toString(slider_1.getValue()));
+            Variables.columnSpace = slider_1.getValue();
         });
         myFont = new Font("Times New Roman", Font.PLAIN, 16);
         JLabel MaxBirdNumbLbl = new JLabel("");
@@ -61,11 +54,9 @@ public class Panel {
         maxBirdLbl.setBounds(10, 133, 226, 29);
         frame.getContentPane().add(maxBirdLbl);
 
-        slider.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent arg0) {
-                animationSpeedLbl.setText(Integer.toString(slider.getValue()));
-                Variables.animationSpeed = slider.getValue();
-            }
+        slider.addChangeListener(arg0 -> {
+            animationSpeedLbl.setText(Integer.toString(slider.getValue()));
+            Variables.animationSpeed = slider.getValue();
         });
         slider.setValue(0);
         slider.setMaximum(20);
@@ -96,35 +87,33 @@ public class Panel {
 
         JButton btnNewButton = new JButton(
                 "Параметры скрытых слоев");
-        btnNewButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                Variables.bestBird = null;
+        btnNewButton.addActionListener(e -> {
+            Variables.bestBird = null;
 
-                String s;
-                int[] inthiddenlayer;
-                s = hiddenLayerTextField.getText();
-                String[] hiddenLayerString = s.split(",");
-                if (hiddenLayerString.length == 1 && hiddenLayerString[0].isEmpty()) {
-                    inthiddenlayer = new int[2];
-                    inthiddenlayer[0] = 4;
-                    inthiddenlayer[1] = 2;
-                } else {
+            String s;
+            int[] intHiddenLayer;
+            s = hiddenLayerTextField.getText();
+            String[] hiddenLayerString = s.split(",");
+            if (hiddenLayerString.length == 1 && hiddenLayerString[0].isEmpty()) {
+                intHiddenLayer = new int[2];
+                intHiddenLayer[0] = 4;
+                intHiddenLayer[1] = 2;
+            } else {
 
-                    inthiddenlayer = new int[hiddenLayerString.length + 2];
-                    inthiddenlayer[0] = 4;
-                    for (int i = 1; i < inthiddenlayer.length - 1; i++) {
-                        inthiddenlayer[i] = Integer.parseInt(hiddenLayerString[i - 1]);
-                    }
-                    inthiddenlayer[inthiddenlayer.length - 1] = 2;
+                intHiddenLayer = new int[hiddenLayerString.length + 2];
+                intHiddenLayer[0] = 4;
+                for (int i = 1; i < intHiddenLayer.length - 1; i++) {
+                    intHiddenLayer[i] = Integer.parseInt(hiddenLayerString[i - 1]);
                 }
-                Variables.hiddenLayers = inthiddenlayer;
-                Variables.populationCount = 0;
-                Variables.maxColumnsPassed = 0;
-                Variables.newGame();
-                Variables.sleep.start();
-                Graphics gg = panel_1.getGraphics();
-                panel_1.paint(gg);
+                intHiddenLayer[intHiddenLayer.length - 1] = 2;
             }
+            Variables.hiddenLayers = intHiddenLayer;
+            Variables.populationCount = 0;
+            Variables.maxColumnsPassed = 0;
+            Variables.newGame();
+            Variables.sleep.start();
+            Graphics gg = panel_1.getGraphics();
+            panel_1.paint(gg);
         });
         btnNewButton.setFont(myFont);
         btnNewButton.setBounds(307, 174, 243, 23);
@@ -141,22 +130,14 @@ public class Panel {
 
         JButton pauseBTN = new JButton("Пауза");
         pauseBTN.setFont(myFont);
-        pauseBTN.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                Variables.sleep.stop();
-            }
-        });
+        pauseBTN.addActionListener(arg0 -> Variables.sleep.stop());
 
         pauseBTN.setBounds(379, 0, 89, 29);
         frame.getContentPane().add(pauseBTN);
 
         JButton startBTN = new JButton("Старт");
         startBTN.setFont(myFont);
-        startBTN.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                Variables.sleep.start();
-            }
-        });
+        startBTN.addActionListener(e -> Variables.sleep.start());
 
         startBTN.setBounds(280, 0, 89, 29);
         frame.getContentPane().add(startBTN);
@@ -169,24 +150,20 @@ public class Panel {
         slider_2.setValue(Variables.population);
         MaxBirdNumbLbl.setText(Integer.toString(Variables.population));
         frame.getContentPane().add(slider_2);
-        slider_2.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent arg0) {
-                Variables.population = slider_2.getValue();
-                MaxBirdNumbLbl.setText(Integer.toString(Variables.population));
-            }
+        slider_2.addChangeListener(arg0 -> {
+            Variables.population = slider_2.getValue();
+            MaxBirdNumbLbl.setText(Integer.toString(Variables.population));
         });
 
         JButton CreateSimulationBTN = new JButton(
                 "Создать новую симуляцию");
         CreateSimulationBTN.setFont(myFont);
-        CreateSimulationBTN.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                Variables.populationCount = 0;
-                Variables.bestBird = null;
-                Variables.maxColumnsPassed = 0;
-                Variables.newGame();
-                Variables.sleep.start();
-            }
+        CreateSimulationBTN.addActionListener(arg0 -> {
+            Variables.populationCount = 0;
+            Variables.bestBird = null;
+            Variables.maxColumnsPassed = 0;
+            Variables.newGame();
+            Variables.sleep.start();
         });
         CreateSimulationBTN.setBounds(10, 0, 221, 27);
         frame.getContentPane().add(CreateSimulationBTN);
@@ -310,11 +287,9 @@ public class Panel {
 
         JSlider slider_3 = new JSlider();
         slider_3.setMaximum(99);
-        slider_3.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent arg0) {
-                chanceMutateLbl.setText(Double.toString(slider_3.getValue()) + "%");
-                Variables.chanceMutate = slider_3.getValue();
-            }
+        slider_3.addChangeListener(arg0 -> {
+            chanceMutateLbl.setText(Double.toString(slider_3.getValue()) + "%");
+            Variables.chanceMutate = slider_3.getValue();
         });
 
         slider_3.setValue(10);
@@ -325,12 +300,10 @@ public class Panel {
         JSlider slider_4 = new JSlider();
         slider_4.setValue(10);
         Variables.maxWeightChange = slider_4.getValue();
-        maxWeightChangeLbl.setText(Double.toString(Variables.maxWeightChange) + "%");
-        slider_4.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent arg0) {
-                maxWeightChangeLbl.setText(Double.toString(Variables.maxWeightChange) + "%");
-                Variables.maxWeightChange = slider_4.getValue();
-            }
+        maxWeightChangeLbl.setText(Variables.maxWeightChange + "%");
+        slider_4.addChangeListener(arg0 -> {
+            maxWeightChangeLbl.setText(Variables.maxWeightChange + "%");
+            Variables.maxWeightChange = slider_4.getValue();
         });
         slider_4.setBounds(10, 267, 243, 23);
         frame.getContentPane().add(slider_4);
