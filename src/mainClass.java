@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
 
 public class mainClass implements ActionListener {
     public Variables var = new Variables();
@@ -139,6 +140,7 @@ public class mainClass implements ActionListener {
             }
         });
         mainClass = new mainClass();
+        Connection con = DB.connect();
     }
 
     @Override
