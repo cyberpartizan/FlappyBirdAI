@@ -11,6 +11,7 @@ public class Variables {
     public static Bird bestBird;
     public static double chanceMutate;
     public static double maxWeightChange;
+    public static Panel panel = new Panel();
 
     public Variables() {
         Width = 1280;
