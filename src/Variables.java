@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 public class Variables {
@@ -12,7 +13,7 @@ public class Variables {
     public static double chanceMutate;
     public static double maxWeightChange;
     public static Panel panel = new Panel();
-
+    public static Connection con = DB.connect();
     public Variables() {
         Width = 1280;
         Height = 720;

@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
 
 public class mainClass implements ActionListener {
     public Variables var = new Variables();
@@ -31,20 +30,20 @@ public class mainClass implements ActionListener {
         window.add(renderer);
         window.setSize(width, height);
         window.setTitle("Flappy Bird AI");
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         window.setVisible(true);
         window.setResizable(false);
-        newGame(-1);
+        newGeneration(true);
     }
 
-    public void newGame(int q) {
+    public void newGeneration(boolean newGame) {
         Variables.columns.clear();
         Variables.populationCount++;
         Variables.columnsPassed = 0;
         for (int i = 0; i < 3; i++) {
             Variables.columns.add(new Column((i * 305) + 400));
         }
-        if (q < 0) {
+        if (newGame) {
             for (int i = 0; i < Variables.population; i++) {
                 Variables.birds.add(new Bird());
             }
@@ -126,7 +125,7 @@ public class mainClass implements ActionListener {
 
         if (Variables.birds.size() == 0) {
             Variables.counter = -1;
-            newGame(1);
+            newGeneration(false);
         }
     }
 
@@ -140,7 +139,6 @@ public class mainClass implements ActionListener {
             }
         });
         mainClass = new mainClass();
-        Connection con = DB.connect();
     }
 
     @Override

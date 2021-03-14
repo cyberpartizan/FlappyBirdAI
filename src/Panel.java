@@ -134,6 +134,18 @@ public class Panel {
 
         pauseBTN.setBounds(379, 0, 89, 29);
         frame.getContentPane().add(pauseBTN);
+        JButton saveAI = new JButton("Сохранить ИИ");
+        saveAI.setFont(myFont);
+        saveAI.addActionListener(arg0 -> Variables.sleep.stop());
+
+        saveAI.setBounds(315, 240, 200, 25);
+        frame.getContentPane().add(saveAI);
+        JButton restoreAI = new JButton("Восстановить ИИ");
+        restoreAI.setFont(myFont);
+        restoreAI.addActionListener(arg0 -> Variables.sleep.stop());
+
+        restoreAI.setBounds(315, 270, 200, 25);
+        frame.getContentPane().add(restoreAI);
 
         JButton startBTN = new JButton("Старт");
         startBTN.setFont(myFont);
