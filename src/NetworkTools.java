@@ -1,17 +1,6 @@
 
 public class NetworkTools {
 
-    public static double[] createArray(int size, double init_value){
-        if(size < 1){
-            return null;
-        }
-        double[] ar = new double[size];
-        for(int i = 0; i < size; i++){
-            ar[i] = init_value;
-        }
-        return ar;
-    }
-
     public static double[] createRandomArray(int size, double lower_bound, double upper_bound){
         if(size < 1){
             return null;
