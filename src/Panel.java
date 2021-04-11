@@ -3,16 +3,21 @@ import javax.swing.GroupLayout.Alignment;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.io.*;
+import java.sql.*;
 
 public class Panel {
     public JFrame frame;
 
     private JTextField hiddenLayerTextField;
+    private JTextField birdBrainName;
     public JLabel popNumberLbl;
     public JLabel countBirdsLivesLbl;
     public JLabel obstacleLbl;
     public JLabel maxObstacleLbl;
     public JPanel panel_1;
+    public static String saveAI = "INSERT INTO bird_brain(name, object) VALUES (?, ?)";
+    public static String getAI = "SELECT object FROM bird_brain WHERE name = ?";
     Font myFont;
     public Panel() {
         initialize();
@@ -128,6 +133,12 @@ public class Panel {
         frame.getContentPane().add(hiddenLayerTextField);
         hiddenLayerTextField.setColumns(10);
 
+        birdBrainName = new JTextField();
+        birdBrainName.setToolTipText("Введите название нового или существующего ИИ");
+        birdBrainName.setColumns(10);
+        birdBrainName.setBounds(307, 240, 243, 27);
+        birdBrainName.setFont(myFont);
+        frame.getContentPane().add(birdBrainName);
         JButton pauseBTN = new JButton("Пауза");
         pauseBTN.setFont(myFont);
         pauseBTN.addActionListener(arg0 -> Variables.sleep.stop());
@@ -136,15 +147,51 @@ public class Panel {
         frame.getContentPane().add(pauseBTN);
         JButton saveAI = new JButton("Сохранить ИИ");
         saveAI.setFont(myFont);
-        saveAI.addActionListener(arg0 -> Variables.sleep.stop());
+        saveAI.addActionListener(arg0 -> {
+            try{
+                Connection connection = Variables.con;
+                PreparedStatement pstmt  = connection.prepareStatement(Panel.saveAI);
+                pstmt.setString(1, birdBrainName.getText());
+                pstmt.setObject(2, serialize(Variables.bestBird.brain));
+                pstmt.executeUpdate();
+                int serialized_id = -1;
+                ResultSet rs = pstmt.executeQuery(Panel.saveAI);
+                if (rs.next()) {
+                    serialized_id = rs.getInt(1);
+                }
+                rs.close();
+                pstmt.close();
+                System.out.println("Java object serialized to database. Object: "
+                        + Variables.bestBird.brain + "serialized_id:" + serialized_id);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
 
-        saveAI.setBounds(315, 240, 200, 25);
+        });
+
+        saveAI.setBounds(300, 270, 135, 25);
         frame.getContentPane().add(saveAI);
         JButton restoreAI = new JButton("Восстановить ИИ");
         restoreAI.setFont(myFont);
-        restoreAI.addActionListener(arg0 -> Variables.sleep.stop());
+        restoreAI.addActionListener(arg0 -> {
+            try {
+                Connection connection = Variables.con;
+                PreparedStatement pstmt = connection.prepareStatement(Panel.getAI);
+                pstmt.setString(1, birdBrainName.getText());
+                ResultSet rs = pstmt.executeQuery();
+                InputStream binaryStream = null;
+                if (rs.next()) {
+                    binaryStream = rs.getBinaryStream(1);
+                }
+                Object obj = deserialize(binaryStream);
+                rs.close();
+                pstmt.close();
+            } catch (Exception throwables) {
+                throwables.printStackTrace();
+            }
+        });
 
-        restoreAI.setBounds(315, 270, 200, 25);
+        restoreAI.setBounds(435, 270, 155, 25);
         frame.getContentPane().add(restoreAI);
 
         JButton startBTN = new JButton("Старт");
@@ -332,5 +379,20 @@ public class Panel {
         frame.getContentPane().add(lblNewLabel_8);
 
 
+    }
+
+    private static byte[] serialize(Object object) throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(baos);
+        oos.writeObject(object);
+        oos.close();
+        return baos.toByteArray();
+    }
+
+    private static Object deserialize(InputStream stream) throws Exception {
+        try (ObjectInputStream ois = new ObjectInputStream(stream)) {
+            Object obj = ois.readObject();
+            return obj;
+        }
     }
 }

@@ -15,7 +15,7 @@ public class DB {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;
-        } finally {
+        }/* finally {
             try {
                 if (conn != null) {
                     conn.close();
@@ -23,6 +23,6 @@ public class DB {
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
             }
-        }
+        }*/
     }
 }

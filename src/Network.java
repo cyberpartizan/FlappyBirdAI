@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.Random;
 
-public class Network {
+public class Network implements Serializable {
 
     private final double[][] output;
     public double[][][] weights;
