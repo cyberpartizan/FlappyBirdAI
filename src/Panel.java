@@ -19,6 +19,7 @@ public class Panel {
     public static String saveAI = "INSERT INTO bird_brain(name, object) VALUES (?, ?)";
     public static String getAI = "SELECT object FROM bird_brain WHERE name = ?";
     Font myFont;
+
     public Panel() {
         initialize();
     }
@@ -148,23 +149,25 @@ public class Panel {
         JButton saveAI = new JButton("Сохранить ИИ");
         saveAI.setFont(myFont);
         saveAI.addActionListener(arg0 -> {
-            try{
-                Connection connection = Variables.con;
-                PreparedStatement pstmt  = connection.prepareStatement(Panel.saveAI);
-                pstmt.setString(1, birdBrainName.getText());
-                pstmt.setObject(2, serialize(Variables.bestBird.brain));
-                pstmt.executeUpdate();
-                int serialized_id = -1;
-                ResultSet rs = pstmt.executeQuery(Panel.saveAI);
-                if (rs.next()) {
-                    serialized_id = rs.getInt(1);
+            if (birdBrainName.getText()!=null && !birdBrainName.getText().equals("")) {
+                try {
+                    Connection connection = Variables.con;
+                    PreparedStatement pstmt = connection.prepareStatement(Panel.saveAI);
+                    pstmt.setString(1, birdBrainName.getText());
+                    pstmt.setObject(2, serialize(Variables.bestBird.brain));
+                    pstmt.executeUpdate();
+                    int serialized_id = -1;
+                    ResultSet rs = pstmt.executeQuery(Panel.saveAI);
+                    if (rs.next()) {
+                        serialized_id = rs.getInt(1);
+                    }
+                    rs.close();
+                    pstmt.close();
+                    System.out.println("Java object serialized to database. Object: "
+                            + Variables.bestBird.brain + "serialized_id:" + serialized_id);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                rs.close();
-                pstmt.close();
-                System.out.println("Java object serialized to database. Object: "
-                        + Variables.bestBird.brain + "serialized_id:" + serialized_id);
-            }catch (Exception e){
-                e.printStackTrace();
             }
 
         });
@@ -174,23 +177,29 @@ public class Panel {
         JButton restoreAI = new JButton("Восстановить ИИ");
         restoreAI.setFont(myFont);
         restoreAI.addActionListener(arg0 -> {
-            try {
-                Connection connection = Variables.con;
-                PreparedStatement pstmt = connection.prepareStatement(Panel.getAI);
-                pstmt.setString(1, birdBrainName.getText());
-                ResultSet rs = pstmt.executeQuery();
-                InputStream binaryStream = null;
-                if (rs.next()) {
-                    binaryStream = rs.getBinaryStream(1);
+            if (birdBrainName.getText()!=null && !birdBrainName.getText().equals("")) {
+                try {
+                    Connection connection = Variables.con;
+                    PreparedStatement pstmt = connection.prepareStatement(Panel.getAI);
+                    pstmt.setString(1, birdBrainName.getText());
+                    ResultSet rs = pstmt.executeQuery();
+                    InputStream binaryStream = null;
+                    if (rs.next()) {
+                        binaryStream = rs.getBinaryStream(1);
+                        Network dbNetwork = (Network) deserialize(binaryStream);
+                        rs.close();
+                        pstmt.close();
+                        Variables.bestBird.brain = dbNetwork;
+                        Variables.hiddenLayers = dbNetwork.NETWORK_LAYER_SIZES;
+                        Variables.clear();
+                        Variables.generateFromBest();
+                        Graphics gg = panel_1.getGraphics();
+                        panel_1.paint(gg);
+                    }
+
+                } catch (Exception throwables) {
+                    throwables.printStackTrace();
                 }
-                Network dbNetwork = (Network) deserialize(binaryStream);
-                rs.close();
-                pstmt.close();
-                Variables.bestBird.brain = dbNetwork;
-                Variables.clear();
-                Variables.generateFromBest();
-            } catch (Exception throwables) {
-                throwables.printStackTrace();
             }
         });
 
