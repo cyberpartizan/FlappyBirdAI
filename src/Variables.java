@@ -31,6 +31,7 @@ public class Variables {
 
     public static void clear() {
         Variables.columns.clear();
+        Variables.birds.clear();
         Variables.populationCount++;
         Variables.counter = -1;
         Variables.columnsPassed = 0;
