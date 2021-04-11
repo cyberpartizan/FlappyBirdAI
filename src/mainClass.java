@@ -37,22 +37,13 @@ public class mainClass implements ActionListener {
     }
 
     public void newGeneration(boolean newGame) {
-        Variables.columns.clear();
-        Variables.populationCount++;
-        Variables.columnsPassed = 0;
-        for (int i = 0; i < 3; i++) {
-            Variables.columns.add(new Column((i * 305) + 400));
-        }
+        Variables.clear();
         if (newGame) {
             for (int i = 0; i < Variables.population; i++) {
                 Variables.birds.add(new Bird());
             }
         } else {
-            for (int i = 0; i < Variables.population; i++) {
-                Variables.birds.add(new Bird());
-                Variables.birds.get(i).brain = new Network(Variables.bestBird.brain);
-                Variables.birds.get(i).brain.mutate(i);
-            }
+            Variables.generateFromBest();
         }
     }
 

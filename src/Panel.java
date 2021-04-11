@@ -183,9 +183,12 @@ public class Panel {
                 if (rs.next()) {
                     binaryStream = rs.getBinaryStream(1);
                 }
-                Object obj = deserialize(binaryStream);
+                Network dbNetwork = (Network) deserialize(binaryStream);
                 rs.close();
                 pstmt.close();
+                Variables.bestBird.brain = dbNetwork;
+                Variables.clear();
+                Variables.generateFromBest();
             } catch (Exception throwables) {
                 throwables.printStackTrace();
             }
