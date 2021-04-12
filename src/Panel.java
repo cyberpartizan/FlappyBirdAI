@@ -220,16 +220,16 @@ public class Panel {
         startBTN.setBounds(280, 0, 89, 29);
         frame.getContentPane().add(startBTN);
 
-        JSlider slider_2 = new JSlider();
-        slider_2.setMinimum(1);
-        slider_2.setMaximum(3000);
-        slider_2.setBounds(10, 162, 243, 23);
+        JSlider populationSlider = new JSlider();
+        populationSlider.setMinimum(1);
+        populationSlider.setMaximum(3000);
+        populationSlider.setBounds(10, 162, 243, 23);
         Variables.population = 500;
-        slider_2.setValue(Variables.population);
+        populationSlider.setValue(Variables.population);
         MaxBirdNumbLbl.setText(Integer.toString(Variables.population));
-        frame.getContentPane().add(slider_2);
-        slider_2.addChangeListener(arg0 -> {
-            Variables.population = slider_2.getValue();
+        frame.getContentPane().add(populationSlider);
+        populationSlider.addChangeListener(arg0 -> {
+            Variables.population = populationSlider.getValue();
             MaxBirdNumbLbl.setText(Integer.toString(Variables.population));
         });
 
@@ -357,23 +357,23 @@ public class Panel {
 
         panel.setBounds(0, 301, 609, 325);
         frame.getContentPane().add(panel);
-        GroupLayout gl_panel_1 = new GroupLayout(panel);
-        gl_panel_1
-                .setHorizontalGroup(gl_panel_1.createParallelGroup(Alignment.LEADING).addGap(0, 536, Short.MAX_VALUE));
-        gl_panel_1.setVerticalGroup(gl_panel_1.createParallelGroup(Alignment.LEADING).addGap(0, 270, Short.MAX_VALUE));
-        panel.setLayout(gl_panel_1);
+        GroupLayout groupLayout = new GroupLayout(panel);
+        groupLayout
+                .setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGap(0, 536, Short.MAX_VALUE));
+        groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGap(0, 270, Short.MAX_VALUE));
+        panel.setLayout(groupLayout);
 
-        JSlider slider_3 = new JSlider();
-        slider_3.setMaximum(99);
-        slider_3.addChangeListener(arg0 -> {
-            chanceMutateLbl.setText(Double.toString(slider_3.getValue()) + "%");
-            Variables.chanceMutate = slider_3.getValue();
+        JSlider chanceMutateSlider = new JSlider();
+        chanceMutateSlider.setMaximum(99);
+        chanceMutateSlider.addChangeListener(arg0 -> {
+            chanceMutateLbl.setText(Double.toString(chanceMutateSlider.getValue()) + "%");
+            Variables.chanceMutate = chanceMutateSlider.getValue();
         });
 
-        slider_3.setValue(10);
-        slider_3.setBounds(10, 212, 243, 23);
-        Variables.chanceMutate = slider_3.getValue();
-        frame.getContentPane().add(slider_3);
+        chanceMutateSlider.setValue(10);
+        chanceMutateSlider.setBounds(10, 212, 243, 23);
+        Variables.chanceMutate = chanceMutateSlider.getValue();
+        frame.getContentPane().add(chanceMutateSlider);
 
         JSlider maxWeightChangeSlider = new JSlider();
         maxWeightChangeSlider.setValue(10);
