@@ -14,6 +14,11 @@ public class mainClass implements ActionListener {
     int delay;
     Font font = new Font("TimesRoman", Font.BOLD, 27);
 
+    //TODO Если  bestBird.brain нечему не равняется, всплывает ошибка при восстановлении
+    //TODO Добавить статистику в БД и доставать ее вместе с ИИ
+    //TODO При нажатие кнопок "восстановить" и "сохранить", обновлять список названий ИИ
+    //TODO При сохранении всплывает ошибка - но все сохраняется. Выяснить что за ошибка
+
     public mainClass() {
 
         width = Variables.Width;

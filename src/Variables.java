@@ -3,6 +3,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 public class Variables {
+    public static Connection con = DB.connect();
     public static int Width, Height, columnSpace, animationSpeed, populationCount, columnsPassed, birdSide, population, counter;
     public static Timer sleep;
     public static int[] hiddenLayers = new int[]{4, 4, 2};
@@ -13,7 +14,6 @@ public class Variables {
     public static double chanceMutate;
     public static double maxWeightChange;
     public static Panel panel = new Panel();
-    public static Connection con = DB.connect();
 
     public Variables() {
         Width = 1280;
