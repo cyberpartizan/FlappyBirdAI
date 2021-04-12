@@ -5,19 +5,17 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.io.*;
 import java.sql.*;
-import java.util.Arrays;
 
 public class Panel {
     public JFrame frame;
-    public JFrame statisticFrame;
 
     private JTextField hiddenLayerTextField;
-    private JComboBox birdBrainName;
-    public JLabel popNumberLbl;
+    private JComboBox networkNamesComBox;
+    public JLabel populationNumberLbl;
     public JLabel countBirdsLivesLbl;
     public JLabel obstacleLbl;
     public JLabel maxObstacleLbl;
-    public JPanel panel_1;
+    public JPanel panel;
     public static String saveAI = "INSERT INTO bird_brain(name, object) VALUES (?, ?)";
     public static String getAI = "SELECT object FROM bird_brain WHERE name = ?";
     public static String getAiNames = "SELECT name FROM bird_brain";
@@ -97,9 +95,9 @@ public class Panel {
         animationSpeedLbl.setBounds(149, 26, 38, 25);
         frame.getContentPane().add(animationSpeedLbl);
 
-        JButton btnNewButton = new JButton(
+        JButton hiddenLayersBtn = new JButton(
                 "Выставить параметры скрытых слоев");
-        btnNewButton.addActionListener(e -> {
+        hiddenLayersBtn.addActionListener(e -> {
             Variables.bestBird = null;
 
             String s;
@@ -124,12 +122,12 @@ public class Panel {
             Variables.maxColumnsPassed = 0;
             Variables.newGame();
             Variables.sleep.start();
-            Graphics gg = panel_1.getGraphics();
-            panel_1.paint(gg);
+            Graphics gg = panel.getGraphics();
+            panel.paint(gg);
         });
-        btnNewButton.setFont(myFont);
-        btnNewButton.setBounds(280, 165, 300, 23);
-        frame.getContentPane().add(btnNewButton);
+        hiddenLayersBtn.setFont(myFont);
+        hiddenLayersBtn.setBounds(280, 165, 300, 23);
+        frame.getContentPane().add(hiddenLayersBtn);
 
         hiddenLayerTextField = new JTextField();
         hiddenLayerTextField.setText("4");
@@ -140,20 +138,20 @@ public class Panel {
         frame.getContentPane().add(hiddenLayerTextField);
         hiddenLayerTextField.setColumns(10);
 
-        JButton pauseBTN = new JButton("Пауза");
-        pauseBTN.setFont(myFont);
-        pauseBTN.addActionListener(arg0 -> Variables.sleep.stop());
+        JButton pauseBtn = new JButton("Пауза");
+        pauseBtn.setFont(myFont);
+        pauseBtn.addActionListener(arg0 -> Variables.sleep.stop());
 
-        pauseBTN.setBounds(379, 0, 89, 29);
-        frame.getContentPane().add(pauseBTN);
-        JButton saveAI = new JButton("Сохранить ИИ");
-        saveAI.setFont(buttonsFont);
-        saveAI.addActionListener(arg0 -> {
-            if (birdBrainName.getSelectedItem()!=null && !birdBrainName.getSelectedItem().toString().equals("")) {
+        pauseBtn.setBounds(379, 0, 89, 29);
+        frame.getContentPane().add(pauseBtn);
+        JButton saveNetworkBtn = new JButton("Сохранить ИИ");
+        saveNetworkBtn.setFont(buttonsFont);
+        saveNetworkBtn.addActionListener(arg0 -> {
+            if (networkNamesComBox.getSelectedItem()!=null && !networkNamesComBox.getSelectedItem().toString().equals("")) {
                 try {
                     Connection connection = Variables.con;
                     PreparedStatement pstmt = connection.prepareStatement(Panel.saveAI);
-                    pstmt.setString(1, birdBrainName.getSelectedItem().toString());
+                    pstmt.setString(1, networkNamesComBox.getSelectedItem().toString());
                     pstmt.setObject(2, serialize(Variables.bestBird.brain));
                     pstmt.executeUpdate();
                     int serialized_id = -1;
@@ -168,21 +166,21 @@ public class Panel {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                getAiNames(birdBrainName);
+                setNetworkNamesComBox(networkNamesComBox);
             }
 
         });
 
-        saveAI.setBounds(307, 230, 125, 25);
-        frame.getContentPane().add(saveAI);
-        JButton restoreAI = new JButton("Восстановить ИИ");
-        restoreAI.setFont(buttonsFont);
-        restoreAI.addActionListener(arg0 -> {
-            if (birdBrainName.getSelectedItem()!=null && !birdBrainName.getSelectedItem().toString().equals("")) {
+        saveNetworkBtn.setBounds(307, 230, 125, 25);
+        frame.getContentPane().add(saveNetworkBtn);
+        JButton restoreNetworkBtn = new JButton("Восстановить ИИ");
+        restoreNetworkBtn.setFont(buttonsFont);
+        restoreNetworkBtn.addActionListener(arg0 -> {
+            if (networkNamesComBox.getSelectedItem()!=null && !networkNamesComBox.getSelectedItem().toString().equals("")) {
                 try {
                     Connection connection = Variables.con;
                     PreparedStatement pstmt = connection.prepareStatement(Panel.getAI);
-                    pstmt.setString(1, birdBrainName.getSelectedItem().toString());
+                    pstmt.setString(1, networkNamesComBox.getSelectedItem().toString());
                     ResultSet rs = pstmt.executeQuery();
                     InputStream binaryStream = null;
                     if (rs.next()) {
@@ -194,26 +192,26 @@ public class Panel {
                         Variables.hiddenLayers = dbNetwork.NETWORK_LAYER_SIZES;
                         Variables.clear();
                         Variables.generateFromBest();
-                        Graphics gg = panel_1.getGraphics();
-                        panel_1.paint(gg);
+                        Graphics gg = panel.getGraphics();
+                        panel.paint(gg);
                     }
 
-                } catch (Exception throwables) {
-                    throwables.printStackTrace();
+                } catch (Exception throwable) {
+                    throwable.printStackTrace();
                 }
             }
         });
-        restoreAI.setBounds(435, 230, 155, 25);
-        frame.getContentPane().add(restoreAI);
+        restoreNetworkBtn.setBounds(435, 230, 155, 25);
+        frame.getContentPane().add(restoreNetworkBtn);
 
-        birdBrainName = new JComboBox ();
-        birdBrainName.setToolTipText("Введите название нового или существующего ИИ");
-        birdBrainName.setBounds(307, 260, 243, 27);
-        birdBrainName.setFont(myFont);
-        birdBrainName.setEditable(true);
-        frame.getContentPane().add(birdBrainName);
+        networkNamesComBox = new JComboBox ();
+        networkNamesComBox.setToolTipText("Введите название нового или существующего ИИ");
+        networkNamesComBox.setBounds(307, 260, 243, 27);
+        networkNamesComBox.setFont(myFont);
+        networkNamesComBox.setEditable(true);
+        frame.getContentPane().add(networkNamesComBox);
 
-        getAiNames(birdBrainName);
+        setNetworkNamesComBox(networkNamesComBox);
 
         JButton startBTN = new JButton("Старт");
         startBTN.setFont(myFont);
@@ -235,46 +233,46 @@ public class Panel {
             MaxBirdNumbLbl.setText(Integer.toString(Variables.population));
         });
 
-        JButton CreateSimulationBTN = new JButton(
+        JButton createSimulationBtn = new JButton(
                 "Создать новую симуляцию");
-        CreateSimulationBTN.setFont(myFont);
-        CreateSimulationBTN.addActionListener(arg0 -> {
+        createSimulationBtn.setFont(myFont);
+        createSimulationBtn.addActionListener(arg0 -> {
             Variables.populationCount = 0;
             Variables.bestBird = null;
             Variables.maxColumnsPassed = 0;
             Variables.newGame();
             Variables.sleep.start();
         });
-        CreateSimulationBTN.setBounds(10, 0, 221, 27);
-        frame.getContentPane().add(CreateSimulationBTN);
+        createSimulationBtn.setBounds(10, 0, 221, 27);
+        frame.getContentPane().add(createSimulationBtn);
 
-        JLabel lblNewLabel_2 = new JLabel("Популяция №");
-        lblNewLabel_2.setFont(myFont);
-        lblNewLabel_2.setBounds(280, 38, 94, 18);
-        frame.getContentPane().add(lblNewLabel_2);
+        JLabel populationLbl = new JLabel("Популяция №");
+        populationLbl.setFont(myFont);
+        populationLbl.setBounds(280, 38, 94, 18);
+        frame.getContentPane().add(populationLbl);
 
-        popNumberLbl = new JLabel("");
-        popNumberLbl.setFont(myFont);
-        popNumberLbl.setBounds(384, 38, 89, 18);
-        frame.getContentPane().add(popNumberLbl);
+        populationNumberLbl = new JLabel("");
+        populationNumberLbl.setFont(myFont);
+        populationNumberLbl.setBounds(384, 38, 89, 18);
+        frame.getContentPane().add(populationNumberLbl);
 
-        JLabel lblNewLabel_3 = new JLabel(
+        JLabel numberBirdsAliveLbl = new JLabel(
                 "Число живых птиц:");
-        lblNewLabel_3.setFont(myFont);
-        lblNewLabel_3.setBounds(280, 67, 133, 25);
-        frame.getContentPane().add(lblNewLabel_3);
+        numberBirdsAliveLbl.setFont(myFont);
+        numberBirdsAliveLbl.setBounds(280, 67, 133, 25);
+        frame.getContentPane().add(numberBirdsAliveLbl);
 
-        JLabel lblNewLabel_4 = new JLabel(
+        JLabel obstaclesPassedLbl = new JLabel(
                 "Препятствий пройдено: ");
-        lblNewLabel_4.setFont(myFont);
-        lblNewLabel_4.setBounds(280, 103, 170, 19);
-        frame.getContentPane().add(lblNewLabel_4);
+        obstaclesPassedLbl.setFont(myFont);
+        obstaclesPassedLbl.setBounds(280, 103, 170, 19);
+        frame.getContentPane().add(obstaclesPassedLbl);
 
-        JLabel lblNewLabel_5 = new JLabel(
+        JLabel maxObstaclesPassedLbl = new JLabel(
                 "Максимально пройдено препятствий: ");
-        lblNewLabel_5.setFont(myFont);
-        lblNewLabel_5.setBounds(280, 138, 270, 25);
-        frame.getContentPane().add(lblNewLabel_5);
+        maxObstaclesPassedLbl.setFont(myFont);
+        maxObstaclesPassedLbl.setBounds(280, 138, 270, 25);
+        frame.getContentPane().add(maxObstaclesPassedLbl);
 
         countBirdsLivesLbl = new JLabel("");
         countBirdsLivesLbl.setFont(myFont);
@@ -301,14 +299,14 @@ public class Panel {
         maxWeightChangeLbl.setBounds(255, 250, 60, 15);
         frame.getContentPane().add(maxWeightChangeLbl);
 
-        panel_1 = new JPanel() {
+        panel = new JPanel() {
             public void paint(Graphics g) {
                 super.paint(g);
                 g.setColor(Color.GRAY);
                 Graphics2D gg = (Graphics2D) g;
                 g.setColor(Color.GRAY);
-                int width = panel_1.getWidth();
-                int height = panel_1.getHeight();
+                int width = panel.getWidth();
+                int height = panel.getHeight();
                 g.fillRect(0, 0, width, height);
                 int widthCell = width / (Variables.hiddenLayers.length + 1);
                 //Раскраска линий нейросети
@@ -357,13 +355,13 @@ public class Panel {
             }
         };
 
-        panel_1.setBounds(0, 301, 609, 325);
-        frame.getContentPane().add(panel_1);
-        GroupLayout gl_panel_1 = new GroupLayout(panel_1);
+        panel.setBounds(0, 301, 609, 325);
+        frame.getContentPane().add(panel);
+        GroupLayout gl_panel_1 = new GroupLayout(panel);
         gl_panel_1
                 .setHorizontalGroup(gl_panel_1.createParallelGroup(Alignment.LEADING).addGap(0, 536, Short.MAX_VALUE));
         gl_panel_1.setVerticalGroup(gl_panel_1.createParallelGroup(Alignment.LEADING).addGap(0, 270, Short.MAX_VALUE));
-        panel_1.setLayout(gl_panel_1);
+        panel.setLayout(gl_panel_1);
 
         JSlider slider_3 = new JSlider();
         slider_3.setMaximum(99);
@@ -377,21 +375,21 @@ public class Panel {
         Variables.chanceMutate = slider_3.getValue();
         frame.getContentPane().add(slider_3);
 
-        JSlider slider_4 = new JSlider();
-        slider_4.setValue(10);
-        Variables.maxWeightChange = slider_4.getValue();
+        JSlider maxWeightChangeSlider = new JSlider();
+        maxWeightChangeSlider.setValue(10);
+        Variables.maxWeightChange = maxWeightChangeSlider.getValue();
         maxWeightChangeLbl.setText(Variables.maxWeightChange + "%");
-        slider_4.addChangeListener(arg0 -> {
+        maxWeightChangeSlider.addChangeListener(arg0 -> {
             maxWeightChangeLbl.setText(Variables.maxWeightChange + "%");
-            Variables.maxWeightChange = slider_4.getValue();
+            Variables.maxWeightChange = maxWeightChangeSlider.getValue();
         });
-        slider_4.setBounds(10, 267, 243, 23);
-        frame.getContentPane().add(slider_4);
-        JLabel lblNewLabel_6 = new JLabel(
+        maxWeightChangeSlider.setBounds(10, 267, 243, 23);
+        frame.getContentPane().add(maxWeightChangeSlider);
+        JLabel chanceNeuronMutateLbl = new JLabel(
                 "Вероятность мутации нейрона");
-        lblNewLabel_6.setFont(myFont);
-        lblNewLabel_6.setBounds(10, 187, 218, 23);
-        frame.getContentPane().add(lblNewLabel_6);
+        chanceNeuronMutateLbl.setFont(myFont);
+        chanceNeuronMutateLbl.setBounds(10, 187, 218, 23);
+        frame.getContentPane().add(chanceNeuronMutateLbl);
 
         JLabel neuronMaxWeightDiff = new JLabel(
                 "Максимальный сдвиг веса нейрона");
@@ -416,15 +414,15 @@ public class Panel {
             return obj;
         }
     }
-    private static void getAiNames(JComboBox birdBrainName){
+    private static void setNetworkNamesComBox(JComboBox networkNameComBox){
         try {
             Connection connection = Variables.con;
             PreparedStatement pstmt = connection.prepareStatement(Panel.getAiNames);
             ResultSet rs = pstmt.executeQuery();
-            birdBrainName.removeAllItems();
-            birdBrainName.addItem("");
+            networkNameComBox.removeAllItems();
+            networkNameComBox.addItem("");
             while (rs.next()) {
-                birdBrainName.addItem(rs.getString(1));
+                networkNameComBox.addItem(rs.getString(1));
             }
             rs.close();
 

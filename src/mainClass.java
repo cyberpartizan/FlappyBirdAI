@@ -91,7 +91,7 @@ public class mainClass implements ActionListener {
         }
         g.setFont(font);
         g.setColor(Color.white);
-        panel.popNumberLbl.setText(Integer.toString(Variables.populationCount));
+        panel.populationNumberLbl.setText(Integer.toString(Variables.populationCount));
         panel.countBirdsLivesLbl.setText(Integer.toString(Variables.birds.size()));
         panel.obstacleLbl.setText(Integer.toString(Variables.columnsPassed));
         panel.maxObstacleLbl.setText(Integer.toString(Variables.maxColumnsPassed));
@@ -105,8 +105,8 @@ public class mainClass implements ActionListener {
             if (Variables.birds.size() == 1) {
                 if (lastBirdBool) {
                     Variables.bestBird = Variables.birds.get(0);
-                    Graphics gg = panel.panel_1.getGraphics();
-                    panel.panel_1.paint(gg);
+                    Graphics gg = panel.panel.getGraphics();
+                    panel.panel.paint(gg);
                     lastBirdBool = false;
                 }
             } else {
