@@ -16,8 +16,8 @@ public class Panel {
     public JLabel obstacleLbl;
     public JLabel maxObstacleLbl;
     public JPanel panel;
-    public static String saveAI = "INSERT INTO bird_brain(name, object) VALUES (?, ?)";
-    public static String getAI = "SELECT object FROM bird_brain WHERE name = ?";
+    public static String saveAI = "INSERT INTO bird_brain(name, object, population, max_columns_passed) VALUES (?, ?, ?, ?)";
+    public static String getAI = "SELECT object,population,max_columns_passed FROM bird_brain WHERE name = ?";
     public static String getAiNames = "SELECT name FROM bird_brain";
     Font myFont;
     Font buttonsFont;
@@ -153,6 +153,8 @@ public class Panel {
                     PreparedStatement pstmt = connection.prepareStatement(Panel.saveAI);
                     pstmt.setString(1, networkNamesComBox.getSelectedItem().toString());
                     pstmt.setObject(2, serialize(Variables.bestBird.brain));
+                    pstmt.setObject(3, Variables.populationCount);
+                    pstmt.setObject(4, Variables.maxColumnsPassed);
                     pstmt.executeUpdate();
                     int serialized_id = -1;
                     ResultSet rs = pstmt.executeQuery();
@@ -186,6 +188,8 @@ public class Panel {
                     if (rs.next()) {
                         binaryStream = rs.getBinaryStream(1);
                         Network dbNetwork = (Network) deserialize(binaryStream);
+                        Variables.populationCount = rs.getInt(2)-1;
+                        Variables.maxColumnsPassed = rs.getInt(3);
                         rs.close();
                         pstmt.close();
                         Variables.bestBird = new Bird();

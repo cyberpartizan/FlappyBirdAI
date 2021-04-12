@@ -14,8 +14,6 @@ public class mainClass implements ActionListener {
     int delay;
     Font font = new Font("TimesRoman", Font.BOLD, 27);
 
-    //TODO Добавить статистику в БД и доставать ее вместе с ИИ
-    //TODO При сохранении всплывает ошибка - но все сохраняется. Выяснить что за ошибка
 
     public mainClass() {
 
