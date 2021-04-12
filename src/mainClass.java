@@ -14,7 +14,6 @@ public class mainClass implements ActionListener {
     int delay;
     Font font = new Font("TimesRoman", Font.BOLD, 27);
 
-    //TODO Если  bestBird.brain нечему не равняется, всплывает ошибка при восстановлении
     //TODO Добавить статистику в БД и доставать ее вместе с ИИ
     //TODO При сохранении всплывает ошибка - но все сохраняется. Выяснить что за ошибка
 
@@ -103,7 +102,7 @@ public class mainClass implements ActionListener {
         for (int i = 0; i < Variables.birds.size(); i++) {
             brd = Variables.birds.get(i);
             if (Variables.birds.size() == 1) {
-                if (lastBirdBool) {
+                if (lastBirdBool && Variables.maxColumnsPassed <= Variables.columnsPassed) {
                     Variables.bestBird = Variables.birds.get(0);
                     Graphics gg = panel.panel.getGraphics();
                     panel.panel.paint(gg);

@@ -147,7 +147,7 @@ public class Panel {
         JButton saveNetworkBtn = new JButton("Сохранить ИИ");
         saveNetworkBtn.setFont(buttonsFont);
         saveNetworkBtn.addActionListener(arg0 -> {
-            if (networkNamesComBox.getSelectedItem()!=null && !networkNamesComBox.getSelectedItem().toString().equals("")) {
+            if (networkNamesComBox.getSelectedItem() != null && !networkNamesComBox.getSelectedItem().toString().equals("") && Variables.bestBird != null) {
                 try {
                     Connection connection = Variables.con;
                     PreparedStatement pstmt = connection.prepareStatement(Panel.saveAI);
@@ -155,7 +155,7 @@ public class Panel {
                     pstmt.setObject(2, serialize(Variables.bestBird.brain));
                     pstmt.executeUpdate();
                     int serialized_id = -1;
-                    ResultSet rs = pstmt.executeQuery(Panel.saveAI);
+                    ResultSet rs = pstmt.executeQuery();
                     if (rs.next()) {
                         serialized_id = rs.getInt(1);
                     }
@@ -176,7 +176,7 @@ public class Panel {
         JButton restoreNetworkBtn = new JButton("Восстановить ИИ");
         restoreNetworkBtn.setFont(buttonsFont);
         restoreNetworkBtn.addActionListener(arg0 -> {
-            if (networkNamesComBox.getSelectedItem()!=null && !networkNamesComBox.getSelectedItem().toString().equals("")) {
+            if (networkNamesComBox.getSelectedItem() != null && !networkNamesComBox.getSelectedItem().toString().equals("")) {
                 try {
                     Connection connection = Variables.con;
                     PreparedStatement pstmt = connection.prepareStatement(Panel.getAI);
@@ -188,6 +188,7 @@ public class Panel {
                         Network dbNetwork = (Network) deserialize(binaryStream);
                         rs.close();
                         pstmt.close();
+                        Variables.bestBird = new Bird();
                         Variables.bestBird.brain = dbNetwork;
                         Variables.hiddenLayers = dbNetwork.NETWORK_LAYER_SIZES;
                         Variables.clear();
@@ -204,7 +205,7 @@ public class Panel {
         restoreNetworkBtn.setBounds(435, 230, 155, 25);
         frame.getContentPane().add(restoreNetworkBtn);
 
-        networkNamesComBox = new JComboBox ();
+        networkNamesComBox = new JComboBox();
         networkNamesComBox.setToolTipText("Введите название нового или существующего ИИ");
         networkNamesComBox.setBounds(307, 260, 243, 27);
         networkNamesComBox.setFont(myFont);
@@ -414,7 +415,8 @@ public class Panel {
             return obj;
         }
     }
-    private static void setNetworkNamesComBox(JComboBox networkNameComBox){
+
+    private static void setNetworkNamesComBox(JComboBox networkNameComBox) {
         try {
             Connection connection = Variables.con;
             PreparedStatement pstmt = connection.prepareStatement(Panel.getAiNames);
