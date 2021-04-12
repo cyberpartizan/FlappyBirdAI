@@ -168,6 +168,7 @@ public class Panel {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                getAiNames(birdBrainName);
             }
 
         });
@@ -420,6 +421,8 @@ public class Panel {
             Connection connection = Variables.con;
             PreparedStatement pstmt = connection.prepareStatement(Panel.getAiNames);
             ResultSet rs = pstmt.executeQuery();
+            birdBrainName.removeAllItems();
+            birdBrainName.addItem("");
             while (rs.next()) {
                 birdBrainName.addItem(rs.getString(1));
             }
