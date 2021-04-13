@@ -17,13 +17,13 @@ public class mainClass implements ActionListener {
 
     public mainClass() {
 
-        width = Variables.width;
+        width = Variables.WIDTH;
         columnPassed = false;
         delay = 20 - Variables.animationSpeed;
         Variables.populationCount = 0;
         Variables.columnsPassed = 0;
         Variables.maxColumnsPassed = 0;
-        height = Variables.height;
+        height = Variables.HEIGHT;
         Variables.counter = -1;
         JFrame window = new JFrame();
         renderer = new Renderer();
@@ -95,7 +95,7 @@ public class mainClass implements ActionListener {
     }
 
     public void collision() {
-        Variables.birds.removeIf(bird -> bird.y < 0 || bird.y + 2 * Variables.birdSide > height);
+        Variables.birds.removeIf(bird -> bird.y < 0 || bird.y + 2 * Variables.BIRDSIDE > height);
         Bird brd;
         for (int i = 0; i < Variables.birds.size(); i++) {
             brd = Variables.birds.get(i);

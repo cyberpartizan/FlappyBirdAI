@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 public class Variables {
     public static Connection con = DB.connect();
-    public static int width, height;
+    public static int WIDTH, HEIGHT;
     public static int columnSpace, columnsPassed;
     public static int population, populationCount;
-    public static int birdSide;
+    public static int BIRDSIDE;
     public static int animationSpeed;
     public static int counter;
     public static Timer sleep;
@@ -21,9 +21,9 @@ public class Variables {
     public static Panel panel = new Panel();
 
     public Variables() {
-        width = 1280;
-        height = 720;
-        birdSide = 13;
+        WIDTH = 1280;
+        HEIGHT = 720;
+        BIRDSIDE = 13;
     }
 
     public static void newGame() {
