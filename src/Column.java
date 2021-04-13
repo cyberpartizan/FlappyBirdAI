@@ -20,7 +20,7 @@ public class Column {
     }
 
     public void init() {
-        height = Variables.Height;
+        height = Variables.height;
         space = Variables.columnSpace;
         fatness = 70;
         y = dice.nextInt(height);

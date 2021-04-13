@@ -17,13 +17,13 @@ public class mainClass implements ActionListener {
 
     public mainClass() {
 
-        width = Variables.Width;
+        width = Variables.width;
         columnPassed = false;
         delay = 20 - Variables.animationSpeed;
         Variables.populationCount = 0;
         Variables.columnsPassed = 0;
         Variables.maxColumnsPassed = 0;
-        height = Variables.Height;
+        height = Variables.height;
         Variables.counter = -1;
         JFrame window = new JFrame();
         renderer = new Renderer();

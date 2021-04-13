@@ -4,7 +4,12 @@ import java.util.ArrayList;
 
 public class Variables {
     public static Connection con = DB.connect();
-    public static int Width, Height, columnSpace, animationSpeed, populationCount, columnsPassed, birdSide, population, counter;
+    public static int width, height;
+    public static int columnSpace, columnsPassed;
+    public static int population, populationCount;
+    public static int birdSide;
+    public static int animationSpeed;
+    public static int counter;
     public static Timer sleep;
     public static int[] hiddenLayers = new int[]{4, 4, 2};
     public static ArrayList<Column> columns = new ArrayList<>();
@@ -16,10 +21,9 @@ public class Variables {
     public static Panel panel = new Panel();
 
     public Variables() {
-        Width = 1280;
-        Height = 720;
+        width = 1280;
+        height = 720;
         birdSide = 13;
-
     }
 
     public static void newGame() {
@@ -40,7 +44,7 @@ public class Variables {
         }
     }
 
-    public static void generateFromBest(){
+    public static void generateFromBest() {
         for (int i = 0; i < Variables.population; i++) {
             Variables.birds.add(new Bird());
             Variables.birds.get(i).brain = new Network(Variables.bestBird.brain);
