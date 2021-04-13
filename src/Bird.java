@@ -10,17 +10,19 @@ public class Bird {
     Network brain;
 
     public Bird() {
-        x = 60;
-        y = dice.nextInt(50) - 50 + 360;
-        gravity = 1;
+        init();
         brain = new Network(new int[]{4, 4, 2});
     }
 
     public Bird(int[] layers) {
+        init();
+        brain = new Network(layers);
+    }
+
+    private void init(){
         x = 60;
         y = dice.nextInt(50) - 50 + 360;
         gravity = 1;
-        brain = new Network(layers);
     }
 
     public void jump() {
