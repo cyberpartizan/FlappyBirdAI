@@ -4,27 +4,22 @@ import java.util.ArrayList;
 
 public class Variables {
     public static Connection con = DB.connect();
-    public static int width, height;
-    public static int columnSpace, columnsPassed;
+    public static final int WIDTH = 1280;
+    public static final int HEIGHT = 720;
+    public static final int BIRD_SIDE = 1280;
+    public static int columnSpace, columnsPassed, maxColumnsPassed;
     public static int population, populationCount;
-    public static int birdSide;
     public static int animationSpeed;
     public static int counter;
     public static Timer sleep;
     public static int[] hiddenLayers = new int[]{4, 4, 2};
     public static ArrayList<Column> columns = new ArrayList<>();
     public static ArrayList<Bird> birds = new ArrayList<>();
-    public static int maxColumnsPassed;
     public static Bird bestBird;
     public static double chanceMutate;
     public static double maxWeightChange;
     public static Panel panel = new Panel();
 
-    public Variables() {
-        width = 1280;
-        height = 720;
-        birdSide = 13;
-    }
 
     public static void newGame() {
         clear();
