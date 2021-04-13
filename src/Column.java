@@ -11,15 +11,15 @@ public class Column {
 
     public Column() {
         x = 1280;
-        initialization();
+        init();
     }
 
     public Column(int coordinateX) {
         x = coordinateX;
-        initialization();
+        init();
     }
 
-    public void initialization() {
+    public void init() {
         height = Variables.Height;
         space = Variables.columnSpace;
         fatness = 70;
@@ -44,13 +44,9 @@ public class Column {
     public void repaintColumn(Graphics g) {
         g.setColor(color);
         x -= 3;
-        updateRect();
-        g.fillRect(x, 0, fatness, y);
-        g.fillRect(x, y + space, fatness, height);
-    }
-
-    private void updateRect() {
         rectUp.x = x;
         rectDown.x = x;
+        g.fillRect(x, 0, fatness, y);
+        g.fillRect(x, y + space, fatness, height);
     }
 }
