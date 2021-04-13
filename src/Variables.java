@@ -7,7 +7,7 @@ public class Variables {
     public static int WIDTH, HEIGHT;
     public static int columnSpace, columnsPassed;
     public static int population, populationCount;
-    public static int BIRDSIDE;
+    public static int BIRD_SIDE;
     public static int animationSpeed;
     public static int counter;
     public static Timer sleep;
@@ -23,7 +23,7 @@ public class Variables {
     public Variables() {
         WIDTH = 1280;
         HEIGHT = 720;
-        BIRDSIDE = 13;
+        BIRD_SIDE = 13;
     }
 
     public static void newGame() {
