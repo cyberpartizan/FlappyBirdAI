@@ -7,7 +7,6 @@ public class Network implements Serializable {
     public double[][][] weights;
     private final double[][] bias;
 
-    private final double[][] error_signal;
     private final double[][] output_derivative;
 
     public final int[] NETWORK_LAYER_SIZES;
@@ -25,12 +24,10 @@ public class Network implements Serializable {
         this.weights = new double[NETWORK_SIZE][][];
         this.bias = new double[NETWORK_SIZE][];
 
-        this.error_signal = new double[NETWORK_SIZE][];
         this.output_derivative = new double[NETWORK_SIZE][];
 
         for (int i = 0; i < NETWORK_SIZE; i++) {
             this.output[i] = new double[NETWORK_LAYER_SIZES[i]];
-            this.error_signal[i] = new double[NETWORK_LAYER_SIZES[i]];
             this.output_derivative[i] = new double[NETWORK_LAYER_SIZES[i]];
             this.bias[i] = NetworkTools.createRandomArray(NETWORK_LAYER_SIZES[i], -0.5, 0.7);
             if (i > 0) {
@@ -43,7 +40,6 @@ public class Network implements Serializable {
         this.output = NetworkTools.copy2d(other.output);
         this.weights = NetworkTools.copy3d(other.weights);
         this.bias = NetworkTools.copy2d(other.bias);
-        this.error_signal = NetworkTools.copy2d(other.error_signal);
         this.output_derivative = NetworkTools.copy2d(other.output_derivative);
 
         this.NETWORK_LAYER_SIZES = NetworkTools.copy1dInt(other.NETWORK_LAYER_SIZES);

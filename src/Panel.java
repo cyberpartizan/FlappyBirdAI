@@ -226,7 +226,7 @@ public class Panel {
         frame.getContentPane().add(startBTN);
 
         JSlider populationSlider = new JSlider();
-        populationSlider.setMinimum(1);
+        populationSlider.setMinimum(2);
         populationSlider.setMaximum(3000);
         populationSlider.setBounds(10, 162, 243, 23);
         Variables.population = 500;
