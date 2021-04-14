@@ -40,49 +40,18 @@ public class Network implements Serializable {
     }
 
     public Network(Network other) {//Создание независимой копии нейросети
-        this.output = copy2d(other.output);
-        this.weights = copy3d(other.weights);
-        this.bias = copy2d(other.bias);
-        this.error_signal = copy2d(other.error_signal);
-        this.output_derivative = copy2d(other.output_derivative);
+        this.output = NetworkTools.copy2d(other.output);
+        this.weights = NetworkTools.copy3d(other.weights);
+        this.bias = NetworkTools.copy2d(other.bias);
+        this.error_signal = NetworkTools.copy2d(other.error_signal);
+        this.output_derivative = NetworkTools.copy2d(other.output_derivative);
 
-        this.NETWORK_LAYER_SIZES = copy1dInt(other.NETWORK_LAYER_SIZES);
+        this.NETWORK_LAYER_SIZES = NetworkTools.copy1dInt(other.NETWORK_LAYER_SIZES);
         this.INPUT_SIZE = other.INPUT_SIZE;
         this.OUTPUT_SIZE = other.OUTPUT_SIZE;
         this.NETWORK_SIZE = other.NETWORK_SIZE;
     }
 
-    private static double[][][] copy3d(double[][][] original) {//Независимая копия трехмерного массива
-        double[][][] copy = new double[original.length][][];
-        for (int i = 0; i < original.length; i++) {
-            if (i > 0) {
-                copy[i] = copy2d(original[i]);
-            }
-        }
-        return copy;
-    }
-
-    private static double[][] copy2d(double[][] original) {//Независимая копия двухмерного массива
-        double[][] copy = new double[original.length][];
-        for (int i = 0; i < original.length; i++) {
-            copy[i] = copy1d(original[i]);
-        }
-        return copy;
-    }
-
-    private static double[] copy1d(double[] original) {//Независимая копия одномерного массива (double)
-        int length = original.length;
-        double[] copy = new double[length];
-        System.arraycopy(original, 0, copy, 0, length);
-        return copy;
-    }
-
-    private static int[] copy1dInt(int[] original) {//Независимая копия одномерного массива (int)
-        int length = original.length;
-        int[] copy = new int[length];
-        System.arraycopy(original, 0, copy, 0, length);
-        return copy;
-    }
 
     public double[] calculate(double... input) {
         if (input.length != this.INPUT_SIZE)
