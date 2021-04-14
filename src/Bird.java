@@ -30,7 +30,7 @@ public class Bird {
     }
 
     public void think(Column closestColumn) {
-        double[] input = new double[]{y, closestColumn.x, closestColumn.rectUp.y, closestColumn.rectDown.y};
+        double[] input = new double[]{y, closestColumn.x, closestColumn.rectUp.height, Variables.columnSpace};
         double[] output = brain.calculate(input);
         if (output[0] > output[1]) {
             jump();
