@@ -112,8 +112,13 @@ public class Panel {
 
                 intHiddenLayer = new int[hiddenLayerString.length + 2];
                 intHiddenLayer[0] = 4;
-                for (int i = 1; i < intHiddenLayer.length - 1; i++) {
-                    intHiddenLayer[i] = Integer.parseInt(hiddenLayerString[i - 1]);
+                try{
+                    for (int i = 1; i < intHiddenLayer.length - 1; i++) {
+                        intHiddenLayer[i] = Integer.parseInt(hiddenLayerString[i - 1]);
+                    }
+                }catch (NumberFormatException  exception){
+                    exception.printStackTrace();
+                    return;
                 }
                 intHiddenLayer[intHiddenLayer.length - 1] = 2;
             }
@@ -132,7 +137,7 @@ public class Panel {
         hiddenLayerTextField = new JTextField();
         hiddenLayerTextField.setText("4");
         hiddenLayerTextField
-                .setToolTipText("Через запятую");
+                .setToolTipText("Целые числа, через запятую, без пробелов");
         hiddenLayerTextField.setFont(myFont);
         hiddenLayerTextField.setBounds(307, 198, 243, 27);
         frame.getContentPane().add(hiddenLayerTextField);
