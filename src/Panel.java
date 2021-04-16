@@ -45,12 +45,12 @@ public class Panel {
                 "Свободное пространство");
         JLabel lblNewLabel = new JLabel(
                 "Скорость анимации");
-        JSlider slider_1 = new JSlider();
-        JSlider slider = new JSlider();
+        JSlider columnSpaceSlider = new JSlider();
+        JSlider animationSpeedSlider = new JSlider();
 
-        slider_1.addChangeListener(e -> {
-            freeSpaceLbl.setText(Integer.toString(slider_1.getValue()));
-            Variables.columnSpace = slider_1.getValue();
+        columnSpaceSlider.addChangeListener(e -> {
+            freeSpaceLbl.setText(Integer.toString(columnSpaceSlider.getValue()));
+            Variables.columnSpace = columnSpaceSlider.getValue();
         });
         myFont = new Font("Times New Roman", Font.PLAIN, 16);
         buttonsFont = new Font("Times New Roman", Font.PLAIN, 14);
@@ -64,24 +64,24 @@ public class Panel {
         maxBirdLbl.setBounds(10, 133, 226, 29);
         frame.getContentPane().add(maxBirdLbl);
 
-        slider.addChangeListener(arg0 -> {
-            animationSpeedLbl.setText(Integer.toString(slider.getValue()));
-            Variables.animationSpeed = slider.getValue();
+        animationSpeedSlider.addChangeListener(arg0 -> {
+            animationSpeedLbl.setText(Integer.toString(animationSpeedSlider.getValue()));
+            Variables.animationSpeed = animationSpeedSlider.getValue();
         });
-        slider.setValue(0);
-        slider.setMaximum(20);
-        slider.setBounds(10, 48, 243, 23);
-        frame.getContentPane().add(slider);
+        animationSpeedSlider.setValue(0);
+        animationSpeedSlider.setMaximum(20);
+        animationSpeedSlider.setBounds(10, 48, 243, 23);
+        frame.getContentPane().add(animationSpeedSlider);
 
         lblNewLabel.setFont(myFont);
         lblNewLabel.setBounds(10, 26, 177, 25);
         frame.getContentPane().add(lblNewLabel);
         Variables.columnSpace = 100;
-        slider_1.setValue(Variables.columnSpace);
-        slider_1.setMaximum(350);
-        slider_1.setMinimum(70);
-        slider_1.setBounds(10, 111, 243, 23);
-        frame.getContentPane().add(slider_1);
+        columnSpaceSlider.setValue(Variables.columnSpace);
+        columnSpaceSlider.setMaximum(350);
+        columnSpaceSlider.setMinimum(70);
+        columnSpaceSlider.setBounds(10, 111, 243, 23);
+        frame.getContentPane().add(columnSpaceSlider);
 
         lblNewLabel_1.setFont(myFont);
         lblNewLabel_1.setBounds(10, 81, 218, 27);
