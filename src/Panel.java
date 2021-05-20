@@ -175,7 +175,6 @@ public class Panel {
                 }
                 setNetworkNamesComBox(networkNamesComBox);
             }
-
         });
 
         saveNetworkBtn.setBounds(307, 230, 125, 25);
